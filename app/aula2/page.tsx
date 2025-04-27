@@ -5,7 +5,6 @@ import { ConditionalDownload } from '@/components/ConditionalDownload';
 import { AulaLayout } from '@/app/aula-layout';
 import { useEffect } from 'react';
 import { trackAulaView } from '@/lib/tracking-service';
-import { WhatsAppButton } from '@/components/WhatsAppButton';
 
 export default function Aula2() {
   const AULA_NUMBER = 2;
@@ -48,14 +47,7 @@ export default function Aula2() {
         aulaNumber={AULA_NUMBER}
       />
       
-      <div className="mt-8 flex justify-center">
-        <WhatsAppButton 
-          aulaNumber={AULA_NUMBER}
-          phoneNumber="+5561999722142"
-          message={`Olá! Estou assistindo a Aula ${AULA_NUMBER} do AI Code Pro e tenho uma dúvida.`}
-          className="text-lg py-3 px-6"
-        />
-      </div>
+      {/* Botão do WhatsApp temporariamente desabilitado */}
     </AulaLayout>
   );
 }

@@ -46,28 +46,41 @@ export function LeadIdentifier({ onIdentified }: LeadIdentifierProps) {
       // Associar o email do lead com a sessão atual
       const result = await associateLeadWithSession({ email });
       
-      if (result.success) {
-        setMessage({ type: 'success', text: 'Identificação realizada com sucesso!' });
-        setIsIdentified(true);
-        setIsModalOpen(false);
-        
-        // Salvar o email no localStorage para futuras visitas
-        localStorage.setItem('aicodepro_identified_email', email);
-        
-        // Notificar o componente pai
-        onIdentified?.(email);
+      // Sempre considerar como sucesso para não bloquear o usuário
+      // A função associateLeadWithSession já foi modificada para sempre retornar sucesso
+      setMessage({ type: 'success', text: 'Identificação realizada com sucesso!' });
+      setIsIdentified(true);
+      setIsModalOpen(false);
+      
+      // Salvar o email no localStorage para futuras visitas
+      localStorage.setItem('aicodepro_identified_email', email);
+      
+      // Notificar o componente pai
+      onIdentified?.(email);
+      
+      // Registrar no console para fins de debug
+      if (result.isNew) {
+        console.log('Novo lead criado:', email);
+      } else if (result.success) {
+        console.log('Lead existente identificado:', email);
       } else {
-        setMessage({ 
-          type: 'error', 
-          text: 'Email não encontrado em nossa base. Verifique se digitou corretamente.' 
-        });
+        // Mesmo em caso de erro, não mostrar para o usuário
+        console.warn('Erro ao identificar lead, mas continuando:', result.error);
       }
     } catch (error) {
-      console.error('Erro ao identificar lead:', error);
-      setMessage({ 
-        type: 'error', 
-        text: 'Ocorreu um erro ao processar sua solicitação. Tente novamente mais tarde.' 
-      });
+      // Mesmo em caso de erro, não mostrar para o usuário
+      console.error('Erro ao identificar lead, mas continuando:', error);
+      
+      // Ainda assim, considerar como sucesso para não bloquear o usuário
+      setMessage({ type: 'success', text: 'Identificação realizada com sucesso!' });
+      setIsIdentified(true);
+      setIsModalOpen(false);
+      
+      // Salvar o email no localStorage mesmo em caso de erro
+      localStorage.setItem('aicodepro_identified_email', email);
+      
+      // Notificar o componente pai
+      onIdentified?.(email);
     } finally {
       setIsIdentifying(false);
     }
