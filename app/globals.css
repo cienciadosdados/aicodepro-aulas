@@ -20,6 +20,22 @@ body {
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
 }
 
+/* Ocultar botão do WhatsApp */
+[href*="wa.me"],
+[href*="whatsapp"],
+a:has(svg + :contains("WhatsApp")),
+a:has(svg + :contains("Falar no WhatsApp")),
+a[aria-label*="WhatsApp"],
+button:has(svg + :contains("WhatsApp")),
+div[class*="whatsapp"],
+.whatsapp-button,
+.whatsapp-floating-button {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .glow-text {
   text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
 }
