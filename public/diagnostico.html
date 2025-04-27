@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico de Backup - AI Code Pro</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #0070f3;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+        .card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .data-display {
+            background: #f0f0f0;
+            border-radius: 4px;
+            padding: 10px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        button {
+            background: #0070f3;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background: #0051a8;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Diagnóstico de Backup - AI Code Pro</h1>
+    
+    <div class="card">
+        <h2>Dados Salvos Localmente</h2>
+        <div id="localData" class="data-display">Carregando...</div>
+        <button onclick="exportLocalData()">Exportar CSV</button>
+        <button onclick="clearLocalData()" style="background: #ff4040;">Limpar Dados</button>
+    </div>
+    
+    <div class="card">
+        <h2>Teste de Envio</h2>
+        <p>Envie um lead de teste para verificar se o sistema de backup está funcionando:</p>
+        <input type="email" id="testEmail" placeholder="Email de teste" style="padding: 8px; width: 200px; margin-right: 10px;">
+        <input type="tel" id="testPhone" placeholder="Telefone de teste" style="padding: 8px; width: 200px; margin-right: 10px;">
+        <button onclick="sendTestLead()">Enviar Teste</button>
+        <div id="testResult"></div>
+    </div>
+    
+    <div class="card">
+        <h2>Diagnóstico do Sistema</h2>
+        <table id="diagnosticTable">
+            <tr>
+                <th>Recurso</th>
+                <th>Status</th>
+                <th>Detalhes</th>
+            </tr>
+            <tr>
+                <td>localStorage</td>
+                <td id="localStorageStatus">Verificando...</td>
+                <td id="localStorageDetails"></td>
+            </tr>
+            <tr>
+                <td>Acesso a /backup.html</td>
+                <td id="backupPageStatus">Verificando...</td>
+                <td id="backupPageDetails"></td>
+            </tr>
+            <tr>
+                <td>API Interna</td>
+                <td id="apiStatus">Verificando...</td>
+                <td id="apiDetails"></td>
+            </tr>
+            <tr>
+                <td>Webhook Externo</td>
+                <td id="webhookStatus">Verificando...</td>
+                <td id="webhookDetails"></td>
+            </tr>
+        </table>
+    </div>
+    
+    <script>
+        // Função para carregar dados locais
+        function loadLocalData() {
+            try {
+                const data = localStorage.getItem('aicodepro_backup_leads');
+                if (!data) {
+                    document.getElementById('localData').innerHTML = '<p>Nenhum dado encontrado no localStorage.</p>';
+                    return [];
+                }
+                
+                const leads = JSON.parse(data);
+                let html = '<h3>Total de leads: ' + leads.length + '</h3>';
+                
+                if (leads.length > 0) {
+                    html += '<table><tr><th>Email</th><th>Telefone</th><th>É Programador?</th><th>Data</th></tr>';
+                    leads.forEach(lead => {
+                        html += `<tr>
+                            <td>${lead.email || 'N/A'}</td>
+                            <td>${lead.phone || 'N/A'}</td>
+                            <td>${lead.isProgrammer ? 'Sim' : 'Não'}</td>
+                            <td>${new Date(lead.timestamp).toLocaleString()}</td>
+                        </tr>`;
+                    });
+                    html += '</table>';
+                }
+                
+                document.getElementById('localData').innerHTML = html;
+                return leads;
+            } catch (error) {
+                document.getElementById('localData').innerHTML = '<p class="error">Erro ao carregar dados: ' + error.message + '</p>';
+                return [];
+            }
+        }
+        
+        // Função para exportar dados como CSV
+        function exportLocalData() {
+            try {
+                const leads = loadLocalData();
+                if (leads.length === 0) {
+                    alert('Não há dados para exportar.');
+                    return;
+                }
+                
+                // Criar cabeçalho CSV
+                let csv = 'Email,Telefone,É Programador,Data,UTM Source,UTM Medium,UTM Campaign\n';
+                
+                // Adicionar linhas
+                leads.forEach(lead => {
+                    const row = [
+                        lead.email || '',
+                        lead.phone || '',
+                        lead.isProgrammer ? 'Sim' : 'Não',
+                        lead.timestamp || '',
+                        lead.utmSource || '',
+                        lead.utmMedium || '',
+                        lead.utmCampaign || ''
+                    ].map(field => `"${field}"`).join(',');
+                    
+                    csv += row + '\n';
+                });
+                
+                // Criar blob e link para download
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'aicodepro_leads_' + new Date().toISOString().slice(0, 10) + '.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                document.getElementById('testResult').innerHTML = '<p class="success">Dados exportados com sucesso!</p>';
+            } catch (error) {
+                document.getElementById('testResult').innerHTML = '<p class="error">Erro ao exportar: ' + error.message + '</p>';
+            }
+        }
+        
+        // Função para limpar dados locais
+        function clearLocalData() {
+            if (confirm('Tem certeza que deseja limpar todos os leads salvos localmente?')) {
+                try {
+                    localStorage.removeItem('aicodepro_backup_leads');
+                    document.getElementById('localData').innerHTML = '<p>Dados limpos com sucesso.</p>';
+                    document.getElementById('testResult').innerHTML = '<p class="success">Dados limpos com sucesso!</p>';
+                } catch (error) {
+                    document.getElementById('testResult').innerHTML = '<p class="error">Erro ao limpar dados: ' + error.message + '</p>';
+                }
+            }
+        }
+        
+        // Função para enviar lead de teste
+        function sendTestLead() {
+            const email = document.getElementById('testEmail').value;
+            const phone = document.getElementById('testPhone').value;
+            
+            if (!email || !phone) {
+                document.getElementById('testResult').innerHTML = '<p class="error">Por favor, preencha email e telefone.</p>';
+                return;
+            }
+            
+            try {
+                // Criar dados do lead
+                const leadData = {
+                    email,
+                    phone,
+                    isProgrammer: true,
+                    timestamp: new Date().toISOString(),
+                    utmSource: 'test',
+                    utmMedium: 'diagnostic',
+                    utmCampaign: 'test',
+                    source: 'diagnostic_page'
+                };
+                
+                // Salvar localmente
+                const savedLeadsJSON = localStorage.getItem('aicodepro_backup_leads') || '[]';
+                const savedLeads = JSON.parse(savedLeadsJSON);
+                savedLeads.push(leadData);
+                localStorage.setItem('aicodepro_backup_leads', JSON.stringify(savedLeads));
+                
+                // Tentar enviar para webhook externo
+                fetch('https://webhook.site/d8a7b3e5-9b3a-4f1d-9a5e-8f7c6d5e4c3b', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(leadData)
+                }).catch(e => console.error('Erro webhook.site:', e));
+                
+                // Tentar enviar para API interna
+                fetch('/api/webhook-lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(leadData)
+                }).catch(e => console.error('Erro API interna:', e));
+                
+                document.getElementById('testResult').innerHTML = '<p class="success">Lead de teste enviado e salvo localmente!</p>';
+                loadLocalData(); // Recarregar dados
+            } catch (error) {
+                document.getElementById('testResult').innerHTML = '<p class="error">Erro ao enviar lead de teste: ' + error.message + '</p>';
+            }
+        }
+        
+        // Verificar status do localStorage
+        function checkLocalStorage() {
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                document.getElementById('localStorageStatus').innerHTML = '<span class="success">Disponível</span>';
+                document.getElementById('localStorageDetails').textContent = 'localStorage está funcionando corretamente';
+            } catch (e) {
+                document.getElementById('localStorageStatus').innerHTML = '<span class="error">Indisponível</span>';
+                document.getElementById('localStorageDetails').textContent = 'Erro: ' + e.message;
+            }
+        }
+        
+        // Verificar acesso à página de backup
+        function checkBackupPage() {
+            fetch('/backup.html', { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById('backupPageStatus').innerHTML = '<span class="success">Acessível</span>';
+                        document.getElementById('backupPageDetails').textContent = 'Status: ' + response.status;
+                    } else {
+                        document.getElementById('backupPageStatus').innerHTML = '<span class="error">Inacessível</span>';
+                        document.getElementById('backupPageDetails').textContent = 'Status: ' + response.status;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('backupPageStatus').innerHTML = '<span class="error">Erro</span>';
+                    document.getElementById('backupPageDetails').textContent = 'Erro: ' + error.message;
+                });
+        }
+        
+        // Verificar API interna
+        function checkApiStatus() {
+            fetch('/api/webhook-lead', { method: 'HEAD' })
+                .then(response => {
+                    document.getElementById('apiStatus').innerHTML = response.ok ? 
+                        '<span class="success">Disponível</span>' : 
+                        '<span class="error">Indisponível</span>';
+                    document.getElementById('apiDetails').textContent = 'Status: ' + response.status;
+                })
+                .catch(error => {
+                    document.getElementById('apiStatus').innerHTML = '<span class="error">Erro</span>';
+                    document.getElementById('apiDetails').textContent = 'Erro: ' + error.message;
+                });
+        }
+        
+        // Verificar webhook externo
+        function checkWebhookStatus() {
+            fetch('https://webhook.site/d8a7b3e5-9b3a-4f1d-9a5e-8f7c6d5e4c3b', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ test: true })
+            })
+                .then(response => {
+                    document.getElementById('webhookStatus').innerHTML = response.ok ? 
+                        '<span class="success">Disponível</span>' : 
+                        '<span class="error">Indisponível</span>';
+                    document.getElementById('webhookDetails').textContent = 'Status: ' + response.status;
+                })
+                .catch(error => {
+                    document.getElementById('webhookStatus').innerHTML = '<span class="error">Erro</span>';
+                    document.getElementById('webhookDetails').textContent = 'Erro: ' + error.message;
+                });
+        }
+        
+        // Executar diagnóstico ao carregar a página
+        window.onload = function() {
+            loadLocalData();
+            checkLocalStorage();
+            checkBackupPage();
+            checkApiStatus();
+            checkWebhookStatus();
+        };
+    </script>
+</body>
+</html>

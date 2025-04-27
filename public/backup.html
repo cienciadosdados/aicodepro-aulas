@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backup de Leads - AI Code Pro</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .card { background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 20px; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    th { background-color: #f8fafc; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-4">Sistema de Backup de Leads - AI Code Pro</h1>
+    <p class="mb-6">Use esta página para salvar leads manualmente ou recuperar leads salvos localmente.</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="card">
+        <h2 class="text-xl font-semibold mb-4">Salvar Lead Manualmente</h2>
+        
+        <form id="leadForm" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Email</label>
+            <input
+              type="email"
+              id="email"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md"
+              required
+            />
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-1">Telefone</label>
+            <input
+              type="text"
+              id="phone"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md"
+              required
+            />
+          </div>
+          
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="isProgrammer"
+              class="mr-2"
+            />
+            <label for="isProgrammer">É programador?</label>
+          </div>
+          
+          <button
+            type="submit"
+            id="submitBtn"
+            class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            Salvar Lead
+          </button>
+        </form>
+        
+        <div id="result" class="mt-4 p-4 rounded-md hidden"></div>
+      </div>
+      
+      <div class="card">
+        <h2 class="text-xl font-semibold mb-4">Leads Salvos Localmente</h2>
+        
+        <div class="flex gap-2 mb-4">
+          <button
+            id="exportBtn"
+            class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600"
+          >
+            Exportar CSV
+          </button>
+          
+          <button
+            id="clearBtn"
+            class="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600"
+          >
+            Limpar Todos
+          </button>
+        </div>
+        
+        <div id="leadsContainer">
+          <p class="text-gray-500">Carregando leads...</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="mt-8">
+      <a href="/" class="text-blue-500 hover:underline">
+        Voltar para a página inicial
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Função para carregar leads do localStorage
+    function loadLeads() {
+      try {
+        const savedLeadsJSON = localStorage.getItem('aicodepro_backup_leads') || '[]';
+        return JSON.parse(savedLeadsJSON);
+      } catch (error) {
+        console.error('Erro ao carregar leads:', error);
+        return [];
+      }
+    }
+
+    // Função para salvar leads no localStorage
+    function saveLeads(leads) {
+      try {
+        localStorage.setItem('aicodepro_backup_leads', JSON.stringify(leads));
+      } catch (error) {
+        console.error('Erro ao salvar leads:', error);
+      }
+    }
+
+    // Função para renderizar a tabela de leads
+    function renderLeadsTable() {
+      const leads = loadLeads();
+      const container = document.getElementById('leadsContainer');
+      
+      if (leads.length === 0) {
+        container.innerHTML = '<p class="text-gray-500">Nenhum lead salvo localmente.</p>';
+        document.getElementById('exportBtn').disabled = true;
+        document.getElementById('clearBtn').disabled = true;
+        return;
+      }
+      
+      document.getElementById('exportBtn').disabled = false;
+      document.getElementById('clearBtn').disabled = false;
+      
+      let tableHTML = `
+        <div class="overflow-x-auto">
+          <table class="min-w-full border border-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>É Programador</th>
+              </tr>
+            </thead>
+            <tbody>
+      `;
+      
+      leads.forEach(lead => {
+        tableHTML += `
+          <tr>
+            <td>${lead.email || ''}</td>
+            <td>${lead.phone || ''}</td>
+            <td>${lead.isProgrammer ? 'Sim' : 'Não'}</td>
+          </tr>
+        `;
+      });
+      
+      tableHTML += `
+            </tbody>
+          </table>
+        </div>
+      `;
+      
+      container.innerHTML = tableHTML;
+    }
+
+    // Função para exportar leads como CSV
+    function exportLeadsAsCSV() {
+      const leads = loadLeads();
+      
+      if (leads.length === 0) {
+        alert('Não há leads para exportar.');
+        return;
+      }
+      
+      // Criar cabeçalho do CSV
+      const headers = ['Email', 'Telefone', 'É Programador', 'UTM Source', 'UTM Medium', 'UTM Campaign', 'Timestamp'];
+      
+      // Criar linhas do CSV
+      const rows = leads.map(lead => [
+        lead.email || '',
+        lead.phone || '',
+        lead.isProgrammer ? 'Sim' : 'Não',
+        lead.utmSource || '',
+        lead.utmMedium || '',
+        lead.utmCampaign || '',
+        lead.timestamp || ''
+      ]);
+      
+      // Juntar tudo em uma string CSV
+      const csvContent = [
+        headers.join(','),
+        ...rows.map(row => row.join(','))
+      ].join('\n');
+      
+      // Criar blob e link para download
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.setAttribute('href', url);
+      link.setAttribute('download', `aicodepro_leads_backup_${new Date().toISOString().slice(0, 10)}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Função para limpar todos os leads
+    function clearAllLeads() {
+      if (confirm('Tem certeza que deseja limpar todos os leads salvos localmente?')) {
+        localStorage.removeItem('aicodepro_backup_leads');
+        renderLeadsTable();
+      }
+    }
+
+    // Função para salvar um novo lead
+    async function saveLead(email, phone, isProgrammer) {
+      const resultDiv = document.getElementById('result');
+      resultDiv.className = 'mt-4 p-4 rounded-md';
+      resultDiv.style.display = 'block';
+      
+      try {
+        // Dados do lead
+        const leadData = {
+          email,
+          phone,
+          isProgrammer,
+          utmSource: 'manual_backup',
+          utmMedium: 'admin_page',
+          utmCampaign: 'recovery',
+          timestamp: new Date().toISOString()
+        };
+        
+        // Salvar localmente
+        const leads = loadLeads();
+        leads.push(leadData);
+        saveLeads(leads);
+        
+        // Tentar enviar para o servidor
+        try {
+          const response = await fetch('/api/backup-lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(leadData)
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            resultDiv.className = 'mt-4 p-4 rounded-md bg-green-100';
+            resultDiv.innerHTML = `
+              <p class="font-medium">Lead salvo com sucesso!</p>
+              <p class="text-sm mt-1">Salvo localmente e enviado para o servidor.</p>
+            `;
+          } else {
+            resultDiv.className = 'mt-4 p-4 rounded-md bg-yellow-100';
+            resultDiv.innerHTML = `
+              <p class="font-medium">Lead salvo localmente!</p>
+              <p class="text-sm mt-1">Não foi possível enviar para o servidor. Status: ${response.status}</p>
+            `;
+          }
+        } catch (error) {
+          resultDiv.className = 'mt-4 p-4 rounded-md bg-yellow-100';
+          resultDiv.innerHTML = `
+            <p class="font-medium">Lead salvo localmente!</p>
+            <p class="text-sm mt-1">Não foi possível enviar para o servidor: ${error.message}</p>
+          `;
+        }
+        
+        // Atualizar a tabela
+        renderLeadsTable();
+        
+        // Limpar o formulário
+        document.getElementById('email').value = '';
+        document.getElementById('phone').value = '';
+        document.getElementById('isProgrammer').checked = false;
+      } catch (error) {
+        resultDiv.className = 'mt-4 p-4 rounded-md bg-red-100';
+        resultDiv.innerHTML = `
+          <p class="font-medium">Erro ao salvar lead!</p>
+          <p class="text-sm mt-1">${error.message}</p>
+        `;
+      }
+    }
+
+    // Inicializar a página
+    document.addEventListener('DOMContentLoaded', function() {
+      // Renderizar a tabela inicial
+      renderLeadsTable();
+      
+      // Configurar evento de submit do formulário
+      document.getElementById('leadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const isProgrammer = document.getElementById('isProgrammer').checked;
+        
+        saveLead(email, phone, isProgrammer);
+      });
+      
+      // Configurar botões
+      document.getElementById('exportBtn').addEventListener('click', exportLeadsAsCSV);
+      document.getElementById('clearBtn').addEventListener('click', clearAllLeads);
+    });
+  </script>
+</body>
+</html>

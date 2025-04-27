@@ -1,0 +1,381 @@
+/* Otimizações específicas para dispositivos móveis */
+
+/* Otimizações de renderização */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+  will-change: auto;
+}
+
+/* Melhorias de performance para elementos fixos */
+.fixed, .sticky, .absolute {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Otimizações para scrolling */
+html, body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+}
+
+/* Redução de tamanho de fonte para dispositivos móveis */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 1.8rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+    line-height: 1.3 !important;
+  }
+  
+  h3 {
+    font-size: 1.3rem !important;
+  }
+  
+  p, li, a {
+    font-size: 0.95rem !important;
+  }
+  
+  button, .button {
+    font-size: 0.9rem !important;
+    padding: 0.6rem 1.2rem !important;
+  }
+}
+
+/* Melhorias de acessibilidade para toque */
+@media (max-width: 768px) {
+  button, 
+  .button, 
+  a, 
+  [role="button"],
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  input, 
+  select, 
+  textarea {
+    font-size: 16px !important; /* Evita zoom automático em iOS */
+  }
+}
+
+/* Otimizações para imagens */
+img {
+  content-visibility: auto;
+}
+
+img.loaded {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.bg-loaded {
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Reduzir animações para conexões lentas ou preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce), 
+       (connection: slow), 
+       (connection: 2g), 
+       (connection: 3g) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.save-data *, 
+.reduce-motion *, 
+.slow-connection * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Animação de fade-in otimizada */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Otimizações para layout */
+@media (max-width: 768px) {
+  .container, 
+  .wrapper, 
+  section, 
+  .section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .row, 
+  .grid, 
+  .flex {
+    gap: 1rem !important;
+  }
+  
+  /* Reduzir margens e paddings */
+  section, 
+  .section {
+    margin-bottom: 2rem !important;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+}
+
+/* Otimizações para carregamento de imagens */
+.blur-load {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.blur-load::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  animation: pulse 2.5s infinite;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes pulse {
+  0% { opacity: 0; }
+  50% { opacity: 0.1; }
+  100% { opacity: 0; }
+}
+
+/* Classe para imagens de baixa qualidade em conexões lentas */
+.save-data .high-quality-img,
+.slow-connection .high-quality-img {
+  display: none !important;
+}
+
+.save-data .low-quality-img,
+.slow-connection .low-quality-img {
+  display: block !important;
+}
+
+.low-quality-img {
+  display: none;
+}
+
+/* Otimizações para fontes */
+@media (max-width: 768px) {
+  @supports (font-synthesis: style) {
+    html {
+      font-synthesis: style;
+    }
+  }
+}
+
+/* Melhorar a performance de animações */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Otimizações para touch */
+@media (hover: none) {
+  .hover-effect {
+    display: none !important;
+  }
+  
+  .touch-effect {
+    display: block !important;
+  }
+  
+  a:active, button:active, .button:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+}
+
+.touch-effect {
+  display: none;
+}
+
+/* Otimizações para texto */
+.text-optimized {
+  text-rendering: optimizeSpeed;
+}
+
+/* Otimizações para dispositivos móveis */
+.mobile-device .desktop-only {
+  display: none !important;
+}
+
+.mobile-device .mobile-only {
+  display: block !important;
+}
+
+/* Otimizações para conexões lentas */
+.slow-connection .heavy-element,
+.save-data .heavy-element {
+  display: none !important;
+}
+
+.slow-connection .light-element,
+.save-data .light-element {
+  display: block !important;
+}
+
+.light-element {
+  display: none;
+}
+
+/* Otimizações para fontes em conexões lentas */
+.slow-connection {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+/* Aumentar tamanho da fonte em dispositivos móveis */
+@media (max-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+  
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  h2 {
+    font-size: 2.2rem !important;
+  }
+  
+  h3 {
+    font-size: 1.8rem !important;
+  }
+  
+  p, li, a, button, input, textarea {
+    font-size: 1.1rem !important;
+  }
+  
+  .text-4xl {
+    font-size: 2.5rem !important;
+  }
+  
+  .text-3xl {
+    font-size: 2rem !important;
+  }
+  
+  .text-2xl {
+    font-size: 1.75rem !important;
+  }
+  
+  .text-xl {
+    font-size: 1.5rem !important;
+  }
+  
+  .text-lg {
+    font-size: 1.25rem !important;
+  }
+  
+  .text-base {
+    font-size: 1.1rem !important;
+  }
+  
+  .text-sm {
+    font-size: 1rem !important;
+  }
+  
+  /* Melhorar espaçamento e tamanho dos botões */
+  button, .button, [type="button"], [type="submit"] {
+    padding: 0.75rem 1.5rem !important;
+    min-height: 3rem !important;
+    touch-action: manipulation;
+  }
+  
+  /* Aumentar área de toque para links e botões */
+  a, button, .button, [type="button"], [type="submit"], input[type="checkbox"], input[type="radio"] {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+  
+  /* Melhorar espaçamento entre elementos */
+  .space-y-4 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Aumentar padding em containers */
+  .container, .px-4, .px-6 {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+  
+  /* Melhorar legibilidade do texto */
+  p:not(.description-text), li {
+    line-height: 1.7 !important;
+    letter-spacing: 0.01em !important;
+    font-size: 1.1rem !important;
+  }
+  
+  /* Otimização específica para o título principal */
+  .mobile-optimized-text {
+    font-size: 2.5rem !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.02em !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Tamanho específico para o texto de descrição principal */
+  .description-text {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 1.25rem !important;
+  }
+}
+
+/* Otimizações para gradientes em dispositivos móveis */
+.mobile-device .bg-gradient-to-r,
+.mobile-device .bg-gradient-to-l,
+.mobile-device .bg-gradient-to-t,
+.mobile-device .bg-gradient-to-b,
+.slow-connection .bg-gradient-to-r,
+.slow-connection .bg-gradient-to-l,
+.slow-connection .bg-gradient-to-t,
+.slow-connection .bg-gradient-to-b {
+  background: #111 !important;
+}
+
+/* Otimizações para sombras em dispositivos móveis */
+.mobile-device .shadow-lg,
+.mobile-device .shadow-xl,
+.mobile-device .shadow-2xl,
+.slow-connection .shadow-lg,
+.slow-connection .shadow-xl,
+.slow-connection .shadow-2xl {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+}
+
+/* Otimizações para efeitos de blur em dispositivos móveis */
+.mobile-device .blur-lg,
+.mobile-device .blur-xl,
+.mobile-device .blur-2xl,
+.slow-connection .blur-lg,
+.slow-connection .blur-xl,
+.slow-connection .blur-2xl {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background-color: rgba(0,0,0,0.7) !important;
+}

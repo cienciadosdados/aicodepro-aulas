@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ver Leads Salvos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1 { color: #0070f3; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        button { background: #0070f3; color: white; border: none; padding: 10px 15px; 
+                border-radius: 4px; cursor: pointer; margin-right: 10px; }
+        .no-data { color: #ff4040; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>Leads Salvos Localmente</h1>
+    
+    <div id="leads-container">Carregando...</div>
+    
+    <div style="margin-top: 20px;">
+        <button onclick="exportCSV()">Exportar CSV</button>
+        <button onclick="clearData()" style="background-color: #ff4040;">Limpar Dados</button>
+    </div>
+    
+    <script>
+        // Carregar leads do localStorage
+        function loadLeads() {
+            const container = document.getElementById('leads-container');
+            
+            try {
+                const leadsJSON = localStorage.getItem('aicodepro_backup_leads');
+                
+                if (!leadsJSON) {
+                    container.innerHTML = '<p class="no-data">Nenhum lead encontrado no armazenamento local.</p>';
+                    return;
+                }
+                
+                const leads = JSON.parse(leadsJSON);
+                
+                if (leads.length === 0) {
+                    container.innerHTML = '<p class="no-data">Nenhum lead encontrado no armazenamento local.</p>';
+                    return;
+                }
+                
+                let html = `<p>Total de leads: <strong>${leads.length}</strong></p>`;
+                
+                html += `
+                <table>
+                    <tr>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>É Programador</th>
+                        <th>Data</th>
+                    </tr>
+                `;
+                
+                leads.forEach(lead => {
+                    const date = new Date(lead.timestamp).toLocaleString();
+                    html += `
+                    <tr>
+                        <td>${lead.email || 'N/A'}</td>
+                        <td>${lead.phone || 'N/A'}</td>
+                        <td>${lead.isProgrammer ? 'Sim' : 'Não'}</td>
+                        <td>${date}</td>
+                    </tr>
+                    `;
+                });
+                
+                html += '</table>';
+                container.innerHTML = html;
+            } catch (error) {
+                container.innerHTML = `<p class="no-data">Erro ao carregar dados: ${error.message}</p>`;
+            }
+        }
+        
+        // Exportar leads como CSV
+        function exportCSV() {
+            try {
+                const leadsJSON = localStorage.getItem('aicodepro_backup_leads');
+                
+                if (!leadsJSON) {
+                    alert('Nenhum lead para exportar.');
+                    return;
+                }
+                
+                const leads = JSON.parse(leadsJSON);
+                
+                if (leads.length === 0) {
+                    alert('Nenhum lead para exportar.');
+                    return;
+                }
+                
+                let csv = 'Email,Telefone,É Programador,Data\n';
+                
+                leads.forEach(lead => {
+                    const date = new Date(lead.timestamp).toLocaleString();
+                    csv += `"${lead.email || ''}","${lead.phone || ''}","${lead.isProgrammer ? 'Sim' : 'Não'}","${date}"\n`;
+                });
+                
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'leads_' + new Date().toISOString().slice(0, 10) + '.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                alert('Leads exportados com sucesso!');
+            } catch (error) {
+                alert('Erro ao exportar: ' + error.message);
+            }
+        }
+        
+        // Limpar todos os dados
+        function clearData() {
+            if (confirm('Tem certeza que deseja limpar todos os leads salvos?')) {
+                localStorage.removeItem('aicodepro_backup_leads');
+                loadLeads();
+                alert('Dados limpos com sucesso!');
+            }
+        }
+        
+        // Carregar leads quando a página for carregada
+        window.onload = loadLeads;
+    </script>
+</body>
+</html>
