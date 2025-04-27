@@ -51,7 +51,7 @@ export default function Aula4() {
       <div className="mt-8 flex justify-center">
         <WhatsAppButton 
           aulaNumber={AULA_NUMBER}
-          phoneNumber="+5511999999999" // Substitua pelo seu número real
+          phoneNumber="+5561999722142"
           message={`Olá! Estou assistindo a Aula ${AULA_NUMBER} do AI Code Pro e tenho uma dúvida.`}
           className="text-lg py-3 px-6"
         />
