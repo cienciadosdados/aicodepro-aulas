@@ -1,0 +1,5 @@
+.eslintrc*
+.git
+node_modules
+.next
+README.md
