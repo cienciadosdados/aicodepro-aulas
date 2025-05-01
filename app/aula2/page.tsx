@@ -10,7 +10,7 @@ export default function Aula2() {
   const AULA_NUMBER = 2;
   
   const videoData = {
-    url: 'https://youtube.com/live/MKeQLh5K1ow?feature=share',
+    url: 'https://www.youtube.com/watch?v=TwDtwfkSd58',
     title: 'Construindo Sistemas RAG Avançados',
     description: 'Na segunda aula, vamos aprofundar na implementação prática de sistemas RAG (Retrieval Augmented Generation) para criar aplicações de IA que podem acessar e utilizar conhecimento específico.'
   };

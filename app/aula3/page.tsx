@@ -10,7 +10,7 @@ export default function Aula3() {
   const AULA_NUMBER = 3;
   
   const videoData = {
-    url: 'https://youtube.com/live/Zwmr1Gn8_K8?feature=share',
+    url: 'https://www.youtube.com/watch?v=stXVNYowlhU',
     title: 'Agentes de IA e Automação',
     description: 'Na terceira aula, exploramos como criar agentes de IA autônomos capazes de executar tarefas complexas, tomar decisões e interagir com APIs e sistemas externos.'
   };

@@ -10,7 +10,7 @@ export default function Aula4() {
   const AULA_NUMBER = 4;
   
   const videoData = {
-    url: 'https://youtube.com/live/yfHHvmaMkcA?feature=share',
+    url: 'https://www.youtube.com/watch?v=m10_pFKS-fQ',
     title: 'Implementando Aplicações Completas com IA',
     description: 'Na aula final, integramos todos os conceitos aprendidos para construir aplicações completas com IA, incluindo front-end, back-end e implantação em produção.'
   };
