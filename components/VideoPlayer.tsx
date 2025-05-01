@@ -53,14 +53,24 @@ export function VideoPlayer({ videoUrl, title, description, aulaNumber }: VideoP
         {/* Descrição removida conforme solicitado */}
       </div>
       
-      <div className="relative w-full max-w-4xl mx-auto aspect-video rounded-xl overflow-hidden border border-[#0c83fe]/20 shadow-lg shadow-[#0c83fe]/10">
-        <iframe
-          src={getYouTubeEmbedUrl(videoUrl)}
-          title={`Aula ${aulaNumber}: ${title}`}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-          allowFullScreen
-          className="absolute top-0 left-0 w-full h-full"
-        />
+      {/* Container externo com o efeito de borda luminosa intensificado */}
+      <div className="relative w-full max-w-4xl mx-auto">
+        {/* Efeito de borda luminosa pulsante - camada externa mais suave e ampla */}
+        <div className="absolute -inset-3 bg-gradient-to-r from-[#0c83fe]/50 via-[#00ff88]/40 to-[#0c83fe]/50 rounded-xl blur-2xl opacity-70 animate-pulse-slow"></div>
+        
+        {/* Efeito de borda luminosa pulsante - camada interna mais intensa */}
+        <div className="absolute -inset-1.5 bg-gradient-to-r from-[#0c83fe] via-[#00ff88]/80 to-[#0c83fe] rounded-xl blur-md opacity-90 animate-pulse-slow"></div>
+        
+        {/* Container do vídeo */}
+        <div className="relative w-full aspect-video rounded-xl overflow-hidden border-2 border-[#0c83fe]/70 shadow-lg shadow-[#0c83fe]/50 z-10 bg-black">
+          <iframe
+            src={getYouTubeEmbedUrl(videoUrl)}
+            title={`Aula ${aulaNumber}: ${title}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+            allowFullScreen
+            className="absolute top-0 left-0 w-full h-full"
+          />
+        </div>
       </div>
     </div>
   );

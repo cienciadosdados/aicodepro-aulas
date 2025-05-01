@@ -64,18 +64,34 @@ export function AulaNavigation({ currentAula, totalAulas }: AulaNavigationProps)
   return (
     <div className="flex flex-row md:flex-col space-x-2 md:space-x-0 md:space-y-3 justify-center">
       {Array.from({ length: totalAulas }, (_, i) => i + 1).map((aulaNum) => (
-        <Link
-          key={aulaNum}
-          href={getUrlWithUtm(aulaNum)}
-          onClick={() => handleAulaNavigation(aulaNum)}
-          className={`px-3 py-2 rounded-lg text-center transition-all duration-200 text-sm ${
-            aulaNum === currentAula
-              ? 'bg-[#0c83fe] text-white font-medium'
-              : 'bg-black/40 border border-white/10 text-white/70 hover:bg-black/60 hover:border-white/20'
-          }`}
-        >
-          Aula {aulaNum}
-        </Link>
+        <div key={aulaNum} className="relative group">
+          {/* Efeito de borda luminosa para botão ativo - muito mais intenso */}
+          {aulaNum === currentAula && (
+            <>
+              {/* Camada interna mais intensa */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#0c83fe] via-[#00ff88]/80 to-[#0c83fe] rounded-lg blur-md opacity-90 group-hover:opacity-100 animate-pulse-slow"></div>
+              {/* Camada externa mais suave */}
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#0c83fe]/50 via-[#00ff88]/30 to-[#0c83fe]/50 rounded-lg blur-lg opacity-70 animate-pulse-slow"></div>
+            </>
+          )}
+          
+          {/* Efeito de borda luminosa para botões inativos (mais intenso ao hover) */}
+          {aulaNum !== currentAula && (
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#0c83fe]/60 via-[#00ff88]/40 to-[#0c83fe]/60 rounded-lg blur-md opacity-0 group-hover:opacity-90 transition-opacity duration-300"></div>
+          )}
+          
+          <Link
+            href={getUrlWithUtm(aulaNum)}
+            onClick={() => handleAulaNavigation(aulaNum)}
+            className={`relative px-3 py-2 rounded-lg text-center transition-all duration-200 text-sm block z-10 ${
+              aulaNum === currentAula
+                ? 'bg-[#0c83fe] text-white font-medium shadow-[0_0_10px_rgba(12,131,254,0.7)]'
+                : 'bg-black/80 border border-white/20 text-white hover:bg-black/90 hover:border-[#0c83fe]/50'
+            }`}
+          >
+            Aula {aulaNum}
+          </Link>
+        </div>
       ))}
     </div>
   );

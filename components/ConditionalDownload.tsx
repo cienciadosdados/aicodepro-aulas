@@ -103,94 +103,145 @@ export function ConditionalDownload({
   };
 
   return (
-    <div className="bg-black/40 backdrop-blur-sm rounded-xl border border-[#0c83fe]/20 p-6 mt-8">
-      <h3 className="text-xl font-bold mb-4 text-center">Download do Script da Aula {aulaNumber}</h3>
+    <div className="relative">
+      {/* Efeito de borda luminosa para o container principal - muito mais intenso */}
+      <div className="absolute -inset-3 bg-gradient-to-r from-[#0c83fe]/60 via-[#00ff88]/40 to-[#0c83fe]/60 rounded-xl blur-2xl opacity-80 animate-pulse-slow"></div>
+      <div className="absolute -inset-1.5 bg-gradient-to-r from-[#0c83fe] via-[#00ff88]/80 to-[#0c83fe] rounded-xl blur-md opacity-90 animate-pulse-slower"></div>
       
-      <div className="space-y-4">
-        <p className="text-gray-300 text-center">
-          Para baixar o script desta aula, siga nossos perfis nas redes sociais:
-        </p>
+      <div className="relative bg-black/80 backdrop-blur-sm rounded-xl border-2 border-[#0c83fe]/70 p-6 mt-8 z-10 shadow-glow-blue">
+        <h3 className="text-xl font-bold mb-4 text-center">Download do Script da Aula {aulaNumber}</h3>
         
-        <div className="flex flex-col gap-6 justify-center">
-          <div className="flex flex-col items-center">
-            <div className="mb-2 text-center">
-              <span className="bg-purple-600/30 text-white px-3 py-1 rounded-full text-sm font-medium">Passo 1</span>
+        <div className="space-y-4">
+          <p className="text-gray-300 text-center">
+            Para baixar o script desta aula, siga nossos perfis nas redes sociais:
+          </p>
+          
+          <div className="flex flex-col gap-6 justify-center">
+            <div className="flex flex-col items-center">
+              <div className="mb-2 text-center">
+                <span className="bg-purple-600/30 text-white px-3 py-1 rounded-full text-sm font-medium">Passo 1</span>
+              </div>
+              
+              {/* Container para o botão do Instagram com efeito de borda intensificado */}
+              <div className="relative w-full group">
+                {!followedInstagram && (
+                  <>
+                    <div className="absolute -inset-2 bg-gradient-to-r from-purple-600/60 to-pink-500/60 rounded-lg blur-xl opacity-70 group-hover:opacity-90 transition-opacity animate-pulse-slow"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg blur-md opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                  </>
+                )}
+                {followedInstagram && (
+                  <>
+                    <div className="absolute -inset-2 bg-gradient-to-r from-green-500/50 to-green-400/50 rounded-lg blur-xl opacity-70 animate-pulse-slow"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-green-500/80 to-green-400/80 rounded-lg blur-md opacity-80"></div>
+                  </>
+                )}
+                
+                <button
+                  onClick={handleInstagramClick}
+                  disabled={followedInstagram}
+                  className={`relative w-full px-6 py-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 z-10 ${
+                    followedInstagram 
+                      ? 'bg-green-600/20 border border-green-500/50 text-green-400 cursor-default'
+                      : 'bg-gradient-to-r from-purple-600 to-pink-500 text-white hover:from-purple-700 hover:to-pink-600'
+                  }`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
+                  {followedInstagram ? 'Seguindo no Instagram' : 'Seguir no Instagram'}
+                </button>
+              </div>
             </div>
-            <button
-              onClick={handleInstagramClick}
-              disabled={followedInstagram}
-              className={`w-full px-6 py-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 ${
-                followedInstagram 
-                  ? 'bg-green-600/20 border border-green-500/50 text-green-400 cursor-default'
-                  : 'bg-gradient-to-r from-purple-600 to-pink-500 text-white hover:from-purple-700 hover:to-pink-600'
-              }`}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-              </svg>
-              {followedInstagram ? 'Seguindo no Instagram' : 'Seguir no Instagram'}
-            </button>
+            
+            <div className="flex flex-col items-center">
+              <div className="mb-2 text-center">
+                <span className="bg-red-600/30 text-white px-3 py-1 rounded-full text-sm font-medium">Passo 2</span>
+              </div>
+              
+              {/* Container para o botão do YouTube com efeito de borda intensificado */}
+              <div className="relative w-full group">
+                {!followedYoutube && (
+                  <>
+                    <div className="absolute -inset-2 bg-gradient-to-r from-red-600/60 to-red-500/60 rounded-lg blur-xl opacity-70 group-hover:opacity-90 transition-opacity animate-pulse-slow"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-red-500 rounded-lg blur-md opacity-80 group-hover:opacity-100 transition-opacity"></div>
+                  </>
+                )}
+                {followedYoutube && (
+                  <>
+                    <div className="absolute -inset-2 bg-gradient-to-r from-green-500/50 to-green-400/50 rounded-lg blur-xl opacity-70 animate-pulse-slow"></div>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-green-500/80 to-green-400/80 rounded-lg blur-md opacity-80"></div>
+                  </>
+                )}
+                
+                <button
+                  onClick={handleYoutubeClick}
+                  disabled={followedYoutube}
+                  className={`relative w-full px-6 py-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 z-10 ${
+                    followedYoutube 
+                      ? 'bg-green-600/20 border border-green-500/50 text-green-400 cursor-default'
+                      : 'bg-gradient-to-r from-red-600 to-red-500 text-white hover:from-red-700 hover:to-red-600'
+                  }`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                  </svg>
+                  {followedYoutube ? 'Inscrito no YouTube' : 'Inscrever no YouTube'}
+                </button>
+              </div>
+            </div>
           </div>
           
-          <div className="flex flex-col items-center">
-            <div className="mb-2 text-center">
-              <span className="bg-red-600/30 text-white px-3 py-1 rounded-full text-sm font-medium">Passo 2</span>
+          <div className="mt-6 text-center">
+            <div className="flex flex-col items-center mb-4">
+              <div className="mb-2 text-center">
+                <span className="bg-blue-600/30 text-white px-3 py-1 rounded-full text-sm font-medium">Passo 3</span>
+              </div>
             </div>
-            <button
-              onClick={handleYoutubeClick}
-              disabled={followedYoutube}
-              className={`w-full px-6 py-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 ${
-                followedYoutube 
-                  ? 'bg-green-600/20 border border-green-500/50 text-green-400 cursor-default'
-                  : 'bg-gradient-to-r from-red-600 to-red-500 text-white hover:from-red-700 hover:to-red-600'
-              }`}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
-                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
-              </svg>
-              {followedYoutube ? 'Inscrito no YouTube' : 'Inscrever no YouTube'}
-            </button>
-          </div>
-        </div>
-        
-        <div className="mt-6 text-center">
-          <div className="flex flex-col items-center mb-4">
-            <div className="mb-2 text-center">
-              <span className="bg-blue-600/30 text-white px-3 py-1 rounded-full text-sm font-medium">Passo 3</span>
+            
+            {/* Container para o botão de download com efeito de borda intensificado */}
+            <div className="relative group">
+              {downloadEnabled && (
+                <>
+                  <div className="absolute -inset-3 bg-gradient-to-r from-[#0c83fe]/70 via-[#00ff88]/50 to-[#0c83fe]/70 rounded-xl blur-xl opacity-80 group-hover:opacity-90 animate-pulse-slow"></div>
+                  <div className="absolute -inset-1.5 bg-gradient-to-r from-[#0c83fe] via-[#00ff88]/80 to-[#0c83fe] rounded-xl blur-md opacity-90 group-hover:opacity-100 animate-pulse-slower"></div>
+                </>
+              )}
+              
+              <a
+                href={downloadEnabled ? scriptUrl : '#'}
+                download={downloadEnabled ? fileName : undefined}
+                onClick={(e) => {
+                  if (!downloadEnabled) {
+                    e.preventDefault();
+                  } else {
+                    handleDownload();
+                  }
+                }}
+                className={`relative w-full px-8 py-4 rounded-xl inline-flex items-center justify-center gap-2 transition-all duration-200 z-10 ${
+                  downloadEnabled
+                    ? 'bg-[#0c83fe] hover:bg-[#0c83fe]/90 text-white'
+                    : 'bg-gray-700/50 text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                {downloadEnabled ? 'Baixar Script' : 'Siga-nos para liberar o download'}
+              </a>
             </div>
+            
+            {!downloadEnabled && (
+              <p className="text-sm text-gray-400 mt-2">
+                Você precisa seguir ambos os perfis para liberar o download
+              </p>
+            )}
           </div>
-          <a
-            href={downloadEnabled ? scriptUrl : '#'}
-            download={downloadEnabled ? fileName : undefined}
-            onClick={(e) => {
-              if (!downloadEnabled) {
-                e.preventDefault();
-              } else {
-                handleDownload();
-              }
-            }}
-            className={`w-full px-8 py-4 rounded-xl inline-flex items-center justify-center gap-2 transition-all duration-200 ${
-              downloadEnabled
-                ? 'bg-[#0c83fe] hover:bg-[#0c83fe]/90 text-white'
-                : 'bg-gray-700/50 text-gray-400 cursor-not-allowed'
-            }`}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            {downloadEnabled ? 'Baixar Script' : 'Siga-nos para liberar o download'}
-          </a>
-          
-          {!downloadEnabled && (
-            <p className="text-sm text-gray-400 mt-2">
-              Você precisa seguir ambos os perfis para liberar o download
-            </p>
-          )}
         </div>
       </div>
     </div>
