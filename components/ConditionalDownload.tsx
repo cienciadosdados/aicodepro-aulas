@@ -122,20 +122,8 @@ export function ConditionalDownload({
                 <span className="bg-purple-600/30 text-white px-3 py-1 rounded-full text-sm font-medium">Passo 1</span>
               </div>
               
-              {/* Container para o botão do Instagram com efeito de borda intensificado */}
+              {/* Container para o botão do Instagram sem efeito de borda luminosa */}
               <div className="relative w-full group">
-                {!followedInstagram && (
-                  <>
-                    <div className="absolute -inset-2 bg-gradient-to-r from-purple-600/60 to-pink-500/60 rounded-lg blur-xl opacity-70 group-hover:opacity-90 transition-opacity animate-pulse-slow"></div>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg blur-md opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                  </>
-                )}
-                {followedInstagram && (
-                  <>
-                    <div className="absolute -inset-2 bg-gradient-to-r from-green-500/50 to-green-400/50 rounded-lg blur-xl opacity-70 animate-pulse-slow"></div>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-green-500/80 to-green-400/80 rounded-lg blur-md opacity-80"></div>
-                  </>
-                )}
                 
                 <button
                   onClick={handleInstagramClick}
@@ -161,20 +149,8 @@ export function ConditionalDownload({
                 <span className="bg-red-600/30 text-white px-3 py-1 rounded-full text-sm font-medium">Passo 2</span>
               </div>
               
-              {/* Container para o botão do YouTube com efeito de borda intensificado */}
+              {/* Container para o botão do YouTube sem efeito de borda luminosa */}
               <div className="relative w-full group">
-                {!followedYoutube && (
-                  <>
-                    <div className="absolute -inset-2 bg-gradient-to-r from-red-600/60 to-red-500/60 rounded-lg blur-xl opacity-70 group-hover:opacity-90 transition-opacity animate-pulse-slow"></div>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-red-600 to-red-500 rounded-lg blur-md opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                  </>
-                )}
-                {followedYoutube && (
-                  <>
-                    <div className="absolute -inset-2 bg-gradient-to-r from-green-500/50 to-green-400/50 rounded-lg blur-xl opacity-70 animate-pulse-slow"></div>
-                    <div className="absolute -inset-1 bg-gradient-to-r from-green-500/80 to-green-400/80 rounded-lg blur-md opacity-80"></div>
-                  </>
-                )}
                 
                 <button
                   onClick={handleYoutubeClick}
