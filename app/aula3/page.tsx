@@ -11,7 +11,7 @@ export default function Aula3() {
   
   const videoData = {
     url: 'https://www.youtube.com/watch?v=stXVNYowlhU',
-    title: 'Agentes de IA e Automação',
+    title: 'Agentes de IA - Projetos Profissionais Escaláveis',
     description: 'Na terceira aula, exploramos como criar agentes de IA autônomos capazes de executar tarefas complexas, tomar decisões e interagir com APIs e sistemas externos.'
   };
 

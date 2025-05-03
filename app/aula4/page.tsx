@@ -11,7 +11,7 @@ export default function Aula4() {
   
   const videoData = {
     url: 'https://www.youtube.com/watch?v=m10_pFKS-fQ',
-    title: 'Implementando Aplicações Completas com IA',
+    title: 'Projeto Agents Full Stack',
     description: 'Na aula final, integramos todos os conceitos aprendidos para construir aplicações completas com IA, incluindo front-end, back-end e implantação em produção.'
   };
 

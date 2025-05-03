@@ -11,7 +11,7 @@ export default function Aula2() {
   
   const videoData = {
     url: 'https://www.youtube.com/watch?v=TwDtwfkSd58',
-    title: 'Construindo Sistemas RAG Avançados',
+    title: 'Agentes de Voz - Gravação no Mongo por comando de Voz',
     description: 'Na segunda aula, vamos aprofundar na implementação prática de sistemas RAG (Retrieval Augmented Generation) para criar aplicações de IA que podem acessar e utilizar conhecimento específico.'
   };
 
