@@ -1,0 +1,11 @@
+# Instruções para configurar variáveis de ambiente do GA4
+
+1. Crie ou edite o arquivo .env.local na raiz do projeto
+2. Adicione a seguinte linha ao arquivo:
+
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+
+3. Substitua G-XXXXXXXXXX pelo seu ID de medição real do GA4
+   (Você pode encontrá-lo em Admin > Propriedade > Fluxos de dados > Web)
+
+Nota: O arquivo .env.local não é versionado no git por segurança

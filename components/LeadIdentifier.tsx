@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { associateLeadWithSession } from '@/lib/tracking-service';
+import { trackLeadIdentificationGA4 } from '@/lib/analytics';
 
 interface LeadIdentifierProps {
   onIdentified?: (email: string) => void;

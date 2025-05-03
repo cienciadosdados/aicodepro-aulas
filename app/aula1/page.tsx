@@ -5,6 +5,7 @@ import { ConditionalDownload } from '@/components/ConditionalDownload';
 import { AulaLayout } from '@/app/aula-layout';
 import { useEffect } from 'react';
 import { trackAulaView } from '@/lib/tracking-service';
+import { trackAulaViewGA4 } from '@/lib/analytics';
 
 export default function Aula1() {
   const AULA_NUMBER = 1;
@@ -28,6 +29,9 @@ export default function Aula1() {
     trackAulaView(AULA_NUMBER).catch(error => {
       console.error('Erro ao rastrear visualização da aula:', error);
     });
+    
+    // Rastrear visualização no Google Analytics 4
+    trackAulaViewGA4(AULA_NUMBER, videoData.title);
   }, []);
 
   return (
