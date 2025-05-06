@@ -17,8 +17,8 @@ export default function Aula1() {
   };
 
   const downloadData = {
-    scriptUrl: '/scripts/aula1-script.zip',
-    fileName: 'aicodepro-aula1-script.zip',
+    scriptUrl: '/scripts/project-one.zip',
+    fileName: 'project-one.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
