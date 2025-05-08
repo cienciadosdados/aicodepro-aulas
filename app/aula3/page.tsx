@@ -16,8 +16,8 @@ export default function Aula3() {
   };
 
   const downloadData = {
-    scriptUrl: '/scripts/aula3-script.zip',
-    fileName: 'aicodepro-aula3-script.zip',
+    scriptUrl: '/scripts/project-three.zip',
+    fileName: 'aicodepro-aula3-bugflow.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
