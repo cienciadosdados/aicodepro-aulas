@@ -16,8 +16,8 @@ export default function Aula4() {
   };
 
   const downloadData = {
-    scriptUrl: '/scripts/aula4-script.zip',
-    fileName: 'aicodepro-aula4-script.zip',
+    scriptUrl: '/scripts/Project-four.zip',
+    fileName: 'Project-four.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
