@@ -9,13 +9,6 @@ import { trackAulaView } from '@/lib/tracking-service';
 export default function Aula4() {
   const AULA_NUMBER = 4;
   
-  // Redirecionamento para lp.cienciadosdados.com
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.location.href = 'https://lp.cienciadosdados.com';
-    }
-  }, []);
-  
   const videoData = {
     url: 'https://www.youtube.com/watch?v=m10_pFKS-fQ',
     title: 'Projeto Agents Full Stack',
