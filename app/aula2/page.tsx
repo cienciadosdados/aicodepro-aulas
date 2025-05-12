@@ -9,6 +9,13 @@ import { trackAulaView } from '@/lib/tracking-service';
 export default function Aula2() {
   const AULA_NUMBER = 2;
   
+  // Redirecionamento para lp.cienciadosdados.com
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.location.href = 'https://lp.cienciadosdados.com';
+    }
+  }, []);
+  
   const videoData = {
     url: 'https://www.youtube.com/watch?v=TwDtwfkSd58',
     title: 'Agentes de Voz - Gravação no Mongo por comando de Voz',

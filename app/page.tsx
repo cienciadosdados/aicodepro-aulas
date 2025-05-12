@@ -21,10 +21,13 @@ export default function Home() {
       });
       
       const utmString = utmParams.toString();
-      const redirectUrl = `/aula1${utmString ? `?${utmString}` : ''}`;
+      // Redirecionar para o novo domínio lp.cienciadosdados.com
+      const redirectUrl = `https://lp.cienciadosdados.com${utmString ? `?${utmString}` : ''}`;
       
-      // Redirecionar para a primeira aula
-      router.replace(redirectUrl);
+      // Redirecionar para a página de vendas
+      if (typeof window !== 'undefined') {
+        window.location.href = redirectUrl;
+      }
     }
   }, [router]);
 
