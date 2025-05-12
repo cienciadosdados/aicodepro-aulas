@@ -5,6 +5,5 @@
   "outputDirectory": ".next",
   "redirects": [
     { "source": "https://aicodepro.cienciadosdados.com/:path*", "destination": "https://lp.cienciadosdados.com/:path*", "permanent": true }
-  ],
-  "_comment": "Configuração de redirecionamento adicionada em 12/05/2025"
+  ]
 }
