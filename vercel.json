@@ -4,6 +4,6 @@
   "installCommand": "npm install",
   "outputDirectory": ".next",
   "redirects": [
-    { "source": "/:path*", "destination": "https://lp.cienciadosdados.com/:path*", "permanent": true }
+    { "source": "/:path*", "destination": "https://lp.cienciadosdados.com", "permanent": true }
   ]
 }
