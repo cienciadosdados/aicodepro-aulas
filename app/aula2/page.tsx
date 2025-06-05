@@ -9,8 +9,6 @@ import { trackAulaView } from '@/lib/tracking-service';
 export default function Aula2() {
   const AULA_NUMBER = 2;
   
-  // Redirecionamento removido
-  
   const videoData = {
     url: 'https://www.youtube.com/watch?v=TwDtwfkSd58',
     title: 'Agentes de Voz - Gravação no Mongo por comando de Voz',

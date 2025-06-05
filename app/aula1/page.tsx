@@ -10,8 +10,6 @@ import { trackAulaViewGA4 } from '@/lib/analytics';
 export default function Aula1() {
   const AULA_NUMBER = 1;
   
-  // Redirecionamento removido
-  
   const videoData = {
     url: 'https://www.youtube.com/watch?v=DgmohQblw2I',
     title: 'RAG Profissional com VectorDB',
