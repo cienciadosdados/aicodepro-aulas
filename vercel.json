@@ -2,8 +2,5 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "outputDirectory": ".next",
-  "redirects": [
-    { "source": "https://aicodepro.cienciadosdados.com/:path*", "destination": "https://lp.cienciadosdados.com/:path*", "permanent": true }
-  ]
+  "outputDirectory": ".next"
 }
