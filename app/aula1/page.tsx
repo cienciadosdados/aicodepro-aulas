@@ -10,12 +10,7 @@ import { trackAulaViewGA4 } from '@/lib/analytics';
 export default function Aula1() {
   const AULA_NUMBER = 1;
   
-  // Redirecionamento para lp.cienciadosdados.com
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.location.href = 'https://lp.cienciadosdados.com';
-    }
-  }, []);
+  // Redirecionamento removido
   
   const videoData = {
     url: 'https://www.youtube.com/watch?v=DgmohQblw2I',
