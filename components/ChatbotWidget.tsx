@@ -1,16 +1,48 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  
+  // Carregar o iframe apenas quando o chat for aberto pela primeira vez
+  const [shouldLoadIframe, setShouldLoadIframe] = useState(false);
 
   const toggleChat = () => {
+    if (!isOpen && !shouldLoadIframe) {
+      setShouldLoadIframe(true);
+    }
     setIsOpen(!isOpen);
   };
+  
+  // Aplicar CSS personalizado ao iframe quando ele for carregado
+  useEffect(() => {
+    if (isOpen && shouldLoadIframe && iframeRef.current) {
+      // Dar tempo para o iframe carregar
+      const timer = setTimeout(() => {
+        try {
+          if (iframeRef.current && iframeRef.current.contentWindow) {
+            // Tentar injetar CSS para ocultar elementos indesejados
+            const style = document.createElement('style');
+            style.textContent = `
+              .chatbase-bubble-header { display: none !important; }
+              .chatbase-bubble-conversation-header { display: none !important; }
+            `;
+            iframeRef.current.contentWindow.document.head.appendChild(style);
+          }
+        } catch (e) {
+          console.log('Não foi possível modificar o iframe devido a restrições de segurança');
+        }
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, shouldLoadIframe, iframeLoaded]);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-50" style={{ zIndex: 9999 }}>
       {/* Botão do WhatsApp */}
       <button
         onClick={toggleChat}
@@ -29,8 +61,8 @@ export function ChatbotWidget() {
 
       {/* Container do Chatbot */}
       <div 
-        className={`absolute bottom-20 right-0 w-96 h-[600px] bg-white rounded-lg shadow-2xl overflow-hidden transition-all duration-300 transform ${isOpen ? 'scale-100' : 'scale-0'}`}
-        style={{ transformOrigin: 'bottom right' }}
+        className={`absolute bottom-20 right-0 w-96 h-[500px] bg-white rounded-lg shadow-2xl overflow-hidden transition-all duration-300 transform ${isOpen ? 'scale-100' : 'scale-0'}`}
+        style={{ transformOrigin: 'bottom right', maxHeight: '70vh' }}
       >
         {/* Cabeçalho do chat */}
         <div className="bg-green-500 p-4 flex justify-between items-center">
@@ -45,7 +77,7 @@ export function ChatbotWidget() {
               </svg>
             </div>
             <div className="ml-3 text-white">
-              <div className="font-bold">Assistente AI Code Pro</div>
+              <div className="font-bold">Agente AI Code Pro</div>
               <div className="text-xs">Online</div>
             </div>
           </div>
@@ -61,13 +93,20 @@ export function ChatbotWidget() {
         </div>
         
         {/* Iframe do chatbot */}
-        <iframe
-          src="https://www.chatbase.co/chatbot-iframe/x6KwsnirDBy-dwFccyKzb"
-          width="100%"
-          height="calc(100% - 64px)"
-          frameBorder="0"
-          className="bg-white"
-        ></iframe>
+        {shouldLoadIframe && (
+          <iframe
+            ref={iframeRef}
+            src="https://www.chatbase.co/chatbot-iframe/x6KwsnirDBy-dwFccyKzb"
+            width="100%"
+            height="calc(100% - 64px)"
+            frameBorder="0"
+            className="bg-white"
+            title="Agente AI Code Pro"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
+            onLoad={() => setIframeLoaded(true)}
+            style={{ border: 'none', overflow: 'hidden' }}
+          />
+        )}
       </div>
     </div>
   );
