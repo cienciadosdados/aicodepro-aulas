@@ -21,6 +21,9 @@ export function ConditionalDownload({
   const [followedInstagram, setFollowedInstagram] = useState(false);
   const [followedYoutube, setFollowedYoutube] = useState(false);
   const [downloadEnabled, setDownloadEnabled] = useState(false);
+  
+  // Download temporariamente desabilitado
+  const isDownloadTemporarilyDisabled = true;
 
   // Inicializar o ID de sessão quando o componente é montado
   useEffect(() => {
@@ -187,36 +190,30 @@ export function ConditionalDownload({
                 </>
               )}
               
-              <a
-                href={downloadEnabled ? scriptUrl : '#'}
-                download={downloadEnabled ? fileName : undefined}
+              <div
                 onClick={(e) => {
-                  if (!downloadEnabled) {
-                    e.preventDefault();
-                  } else {
+                  e.preventDefault();
+                  // Manter o tracking mesmo com download desabilitado
+                  if (downloadEnabled) {
                     handleDownload();
                   }
                 }}
-                className={`relative w-full px-8 py-4 rounded-xl inline-flex items-center justify-center gap-2 transition-all duration-200 z-10 ${
-                  downloadEnabled
-                    ? 'bg-[#0c83fe] hover:bg-[#0c83fe]/90 text-white'
-                    : 'bg-gray-700/50 text-gray-400 cursor-not-allowed'
-                }`}
+                className="relative w-full px-8 py-4 rounded-xl inline-flex items-center justify-center gap-2 transition-all duration-200 z-10 bg-gray-600/50 text-gray-400 cursor-not-allowed opacity-60"
+                title="Download será liberado em breve"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                {downloadEnabled ? 'Baixar Script' : 'Siga-nos para liberar o download'}
-              </a>
+                Baixar Script
+                <div className="text-xs ml-2 text-gray-500">(Em breve)</div>
+              </div>
             </div>
             
-            {!downloadEnabled && (
-              <p className="text-sm text-gray-400 mt-2">
-                Você precisa seguir ambos os perfis para liberar o download
-              </p>
-            )}
+            <p className="text-sm text-gray-400 mt-2">
+              Download será liberado em breve
+            </p>
           </div>
         </div>
       </div>
