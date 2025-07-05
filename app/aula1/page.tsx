@@ -11,7 +11,7 @@ export default function Aula1() {
   const AULA_NUMBER = 1;
   
   const videoData = {
-    url: 'https://www.youtube.com/watch?v=DgmohQblw2I',
+    url: 'https://www.youtube.com/watch?v=QJZdpFvFL0E',
     title: 'RAG Profissional com VectorDB',
     description: 'Nesta primeira aula, você vai aprender os conceitos fundamentais de Large Language Models (LLMs) e Retrieval Augmented Generation (RAG), as tecnologias que estão revolucionando a forma como construímos aplicações de IA.'
   };
