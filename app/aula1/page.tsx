@@ -17,8 +17,8 @@ export default function Aula1() {
   };
 
   const downloadData = {
-    scriptUrl: '/scripts/project-one.zip',
-    fileName: 'project-one.zip',
+    scriptUrl: '/scripts/Rag_profissional_project.zip',
+    fileName: 'Rag_profissional_project.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
