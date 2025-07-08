@@ -11,8 +11,8 @@ export default function Aula2() {
   
   const videoData = {
     url: 'https://www.youtube.com/watch?v=6k5DDJriqx8',
-    title: 'Agentes de Voz - Gravação no Mongo por comando de Voz',
-    description: 'Na segunda aula, vamos aprofundar na implementação prática de sistemas RAG (Retrieval Augmented Generation) para criar aplicações de IA que podem acessar e utilizar conhecimento específico.'
+    title: 'WhatsApp + MCP Supabase + Multi Agentes',
+    description: 'Na segunda aula, exploramos a integração do WhatsApp com MCP (Model Context Protocol) e Supabase para criar sistemas de multi-agentes que podem interagir através de mensagens e gerenciar dados de forma inteligente.'
   };
 
   const downloadData = {
