@@ -16,8 +16,8 @@ export default function Aula2() {
   };
 
   const downloadData = {
-    scriptUrl: '/scripts/project-two.zip',
-    fileName: 'project-two.zip',
+    scriptUrl: '/scripts/Aula2-MCP-Supabase-Multiagents.zip',
+    fileName: 'Aula2-MCP-Supabase-Multiagents.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
