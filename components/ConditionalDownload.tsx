@@ -22,8 +22,8 @@ export function ConditionalDownload({
   const [followedYoutube, setFollowedYoutube] = useState(false);
   const [downloadEnabled, setDownloadEnabled] = useState(false);
   
-  // Download habilitado para aulas 1 e 2
-  const isDownloadTemporarilyDisabled = ![1, 2].includes(aulaNumber);
+  // Download habilitado para aulas 1, 2 e 3
+  const isDownloadTemporarilyDisabled = ![1, 2, 3].includes(aulaNumber);
 
   // Inicializar o ID de sessão quando o componente é montado
   useEffect(() => {
