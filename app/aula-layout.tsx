@@ -7,7 +7,7 @@ import { AulaNavigation } from '@/components/AulaNavigation';
 import { FloatingGrid } from '@/components/FloatingGrid';
 import { ConditionalDownload } from '@/components/ConditionalDownload';
 import { LeadIdentifier } from '@/components/LeadIdentifier';
-import { ChatbotWidget } from '@/components/ChatbotWidget';
+// import { ChatbotWidget } from '@/components/ChatbotWidget'; // Temporariamente desabilitado para teste
 import { RowBoatWidget } from '@/components/RowBoatWidget';
 import Link from 'next/link';
 

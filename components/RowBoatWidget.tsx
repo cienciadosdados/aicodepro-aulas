@@ -11,7 +11,7 @@ export function RowBoatWidget() {
 
     // Criar e adicionar o script
     const script = document.createElement('script');
-    script.src = 'http://localhost:3006/api/bootstrap.js';
+    script.src = 'http://localhost:3000/api/bootstrap.js';
     script.async = true;
     
     // Adicionar ao head
@@ -19,7 +19,7 @@ export function RowBoatWidget() {
 
     // Cleanup function para remover o script quando o componente for desmontado
     return () => {
-      const existingScript = document.querySelector('script[src="http://localhost:3006/api/bootstrap.js"]');
+      const existingScript = document.querySelector('script[src="http://localhost:3000/api/bootstrap.js"]');
       if (existingScript) {
         existingScript.remove();
       }
