@@ -16,8 +16,8 @@ export default function Aula4() {
   };
 
   const downloadData = {
-    scriptUrl: '/scripts/Project-four.zip',
-    fileName: 'Project-four.zip',
+    scriptUrl: '/scripts/Aula4-Project-Four.zip',
+    fileName: 'Aula4-Project-Four.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
