@@ -62,23 +62,12 @@ export default function Aula5() {
 
   return (
     <AulaLayout currentAula={AULA_NUMBER} downloadData={downloadData}>
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            {videoData.title}
-          </h1>
-          <p className="text-gray-300 text-lg leading-relaxed">
-            {videoData.description}
-          </p>
-        </div>
-
-        <VideoPlayer 
-          videoUrl={videoData.url}
-          title={videoData.title}
-          description={videoData.description}
-          aulaNumber={AULA_NUMBER}
-        />
-      </div>
+      <VideoPlayer 
+        videoUrl={videoData.url}
+        title={videoData.title}
+        description={videoData.description}
+        aulaNumber={AULA_NUMBER}
+      />
     </AulaLayout>
   );
 }
