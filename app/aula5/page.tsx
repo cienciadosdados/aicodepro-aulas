@@ -13,7 +13,7 @@ export default function Aula5() {
   const videoData = {
     url: 'https://www.youtube.com/live/3FIEwO2UPR4',
     title: 'Agentes que criam agentes',
-    description: 'Sessão ao vivo explorando como criar agentes inteligentes que são capazes de gerar outros agentes automaticamente, expandindo as possibilidades de automação.'
+    description: ''
   };
 
   const downloadData = {
