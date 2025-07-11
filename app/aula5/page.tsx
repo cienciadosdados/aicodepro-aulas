@@ -12,8 +12,8 @@ export default function Aula5() {
   
   const videoData = {
     url: 'https://www.youtube.com/live/3FIEwO2UPR4',
-    title: 'Aula 5 - Live Session',
-    description: 'Na quinta aula, exploramos conceitos avançados em uma sessão ao vivo, permitindo interação direta e esclarecimento de dúvidas em tempo real.'
+    title: 'Agentes que criam agentes',
+    description: 'Sessão ao vivo explorando como criar agentes inteligentes que são capazes de gerar outros agentes automaticamente, expandindo as possibilidades de automação.'
   };
 
   const downloadData = {
