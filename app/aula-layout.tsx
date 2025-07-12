@@ -8,6 +8,7 @@ import { FloatingGrid } from '@/components/FloatingGrid';
 import { ConditionalDownload } from '@/components/ConditionalDownload';
 import { LeadIdentifier } from '@/components/LeadIdentifier';
 import { ChatbotWidget } from '@/components/ChatbotWidget';
+import { PromoBar } from '@/components/PromoBar';
 import Link from 'next/link';
 
 interface AulaLayoutProps {
@@ -57,6 +58,7 @@ export function AulaLayout({ children, currentAula, downloadData }: AulaLayoutPr
   
   return (
     <>
+      <PromoBar />
       <FloatingGrid />
       <Header />
       
