@@ -27,8 +27,8 @@ export function PromoBar() {
 
   return (
     <div 
-      className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg transition-all duration-300 ${
-        isClosing ? 'transform -translate-y-full opacity-0' : 'transform translate-y-0 opacity-100'
+      className={`fixed bottom-0 left-0 right-0 z-[9999] bg-gradient-to-r from-blue-600 to-purple-700 text-white shadow-lg transition-all duration-300 ${
+        isClosing ? 'transform translate-y-full opacity-0' : 'transform translate-y-0 opacity-100'
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -52,7 +52,7 @@ export function PromoBar() {
             href="https://lp.cienciadosdados.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-white text-red-600 px-4 py-2 rounded-lg font-bold text-sm hover:bg-gray-100 transition-colors shadow-md"
+            className="bg-white text-purple-700 px-4 py-2 rounded-lg font-bold text-sm hover:bg-gray-100 transition-colors shadow-md"
           >
             GARANTIR VAGA
           </a>
