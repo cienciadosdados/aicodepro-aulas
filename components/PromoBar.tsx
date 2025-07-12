@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { trackPromoBannerClick } from '@/lib/tracking-service';
 
 export function PromoBar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -21,6 +22,14 @@ export function PromoBar() {
       setIsVisible(false);
       setIsClosing(false);
     }, 300);
+  };
+
+  const handleBannerClick = async () => {
+    try {
+      await trackPromoBannerClick();
+    } catch (error) {
+      console.error('Erro ao rastrear clique no banner:', error);
+    }
   };
 
   if (!isVisible) return null;
@@ -52,6 +61,7 @@ export function PromoBar() {
             href="https://lp.cienciadosdados.com/"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleBannerClick}
             className="bg-white text-purple-700 px-4 py-2 rounded-lg font-bold text-sm hover:bg-gray-100 transition-colors shadow-md"
           >
             GARANTIR VAGA
