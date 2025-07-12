@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
 
 export function PromoBar() {
   const [isVisible, setIsVisible] = useState(false);
@@ -61,10 +60,10 @@ export function PromoBar() {
           {/* Botão fechar */}
           <button
             onClick={handleClose}
-            className="text-white hover:text-gray-200 transition-colors p-1"
+            className="text-white hover:text-gray-200 transition-colors p-1 text-xl font-bold"
             aria-label="Fechar"
           >
-            <X size={20} />
+            ×
           </button>
         </div>
       </div>
