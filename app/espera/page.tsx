@@ -67,32 +67,75 @@ export default function EsperaPage() {
           
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-            O <span className="text-[#0c83fe] font-semibold">AI Code Pro</span> chegou ao fim, mas sua jornada em 
-            <span className="text-[#00ff88] font-semibold"> IA e Ciência de Dados</span> está apenas começando!
+            O <span className="text-[#0c83fe] font-semibold">AI Code Pro</span> chegou ao fim, mas sua jornada para se tornar um 
+            <span className="text-[#00ff88] font-semibold">Especialista em IA</span> está apenas começando!
           </p>
 
           {/* Description */}
           <div className="bg-black/40 backdrop-blur-sm border border-[#0c83fe]/20 rounded-2xl p-8 mb-12">
-            <p className="text-lg text-gray-300 mb-6">
-              Você teve acesso a conteúdo exclusivo sobre <strong className="text-[#00ff88]">RAG, LLMs e Agentes de IA</strong>.
-              Agora é hora de dar o próximo passo e se tornar um especialista completo.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="text-center">
-                <div className="text-3xl mb-2">🤖</div>
-                <div className="text-[#0c83fe] font-semibold mb-1">IA Avançada</div>
-                <div className="text-sm text-gray-400">LLMs, RAG, Agentes</div>
+            <div className="mb-8">
+              <h3 className="text-xl font-bold text-[#00ff88] mb-4">💡 O que você vai aprender:</h3>
+              <div className="text-left space-y-2 text-gray-300">
+                <div className="flex items-start">
+                  <span className="text-[#00ff88] mr-2">✅</span>
+                  <span>LLMs, Agentes Autônomos, Automação com APIs</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-[#00ff88] mr-2">✅</span>
+                  <span>LangChain, CrewAI, Claude, OpenAI, Whisper</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-[#00ff88] mr-2">✅</span>
+                  <span>RAG com MCP, integração com bancos relacionais e vetoriais</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-[#00ff88] mr-2">✅</span>
+                  <span>Deploy de aplicações reais e uso de frameworks modernos</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-[#00ff88] mr-2">✅</span>
+                  <span>Projetos prontos para o mercado e portfólio técnico</span>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl mb-2">📊</div>
-                <div className="text-[#00ff88] font-semibold mb-1">Ciência de Dados</div>
-                <div className="text-sm text-gray-400">ML, Analytics, Python</div>
+            </div>
+
+            <div className="mb-8">
+              <h3 className="text-xl font-bold text-[#0c83fe] mb-4">🎓 Você recebe:</h3>
+              <div className="text-left space-y-2 text-gray-300">
+                <div className="flex items-start">
+                  <span className="text-[#0c83fe] mr-2">📜</span>
+                  <span>Certificado com reconhecimento MEC</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-[#0c83fe] mr-2">💎</span>
+                  <span>Acesso vitalício + atualizações quinzenais</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-[#0c83fe] mr-2">📲</span>
+                  <span>Mentoria com meu time direto no WhatsApp</span>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl mb-2">💼</div>
-                <div className="text-[#0c83fe] font-semibold mb-1">Carreira</div>
-                <div className="text-sm text-gray-400">Projetos Reais</div>
+            </div>
+
+            <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/30 rounded-xl p-6">
+              <h3 className="text-xl font-bold text-red-400 mb-4">🔥 Matriculando-se hoje, você ainda leva:</h3>
+              <div className="text-left space-y-2 text-gray-300">
+                <div className="flex items-start">
+                  <span className="text-red-400 mr-2">✔</span>
+                  <span>Formação CDPRO – Cientista de Dados Profissional</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-red-400 mr-2">✔</span>
+                  <span>Formação Mestre do SAS</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-red-400 mr-2">✔</span>
+                  <span>Curso Python para IA</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="text-red-400 mr-2">✔</span>
+                  <span>Suporte técnico direto no grupo fechado</span>
+                </div>
               </div>
             </div>
           </div>
@@ -104,11 +147,11 @@ export default function EsperaPage() {
             
             <div className="relative bg-gradient-to-r from-[#0c83fe]/10 to-[#00ff88]/10 border border-[#0c83fe]/30 rounded-2xl p-8">
               <h2 className="text-2xl font-bold mb-4 text-[#00ff88]">
-                Continue Sua Jornada na Formação Completa
+                AI Pro Expert - Formação Especialista em IA
               </h2>
               
               <p className="text-gray-300 mb-6">
-                Transforme seu conhecimento em uma carreira sólida em IA e Ciência de Dados
+                Transforme seu conhecimento em uma carreira sólida como <strong>Especialista em IA</strong>
               </p>
               
               <a 
@@ -117,7 +160,7 @@ export default function EsperaPage() {
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#0c83fe] to-[#00ff88] hover:from-[#00ff88] hover:to-[#0c83fe] text-black font-bold rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(12,131,254,0.5)] hover:shadow-[0_0_30px_rgba(0,255,136,0.5)]"
               >
                 <span className="mr-2">🚀</span>
-                Quero me Matricular na Formação
+                Quero me Tornar Especialista em IA
               </a>
             </div>
           </div>
