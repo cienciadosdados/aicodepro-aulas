@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { trackAulaView } from '@/lib/tracking-service';
+import { FloatingGrid } from '@/components/FloatingGrid';
 
 export default function EsperaPage() {
   useEffect(() => {
@@ -16,7 +17,6 @@ export default function EsperaPage() {
       
       // Track with existing tracking service
       try {
-        // Use existing tracking infrastructure
         const sessionId = typeof localStorage !== 'undefined' ? localStorage.getItem('aicodepro_session_id') : null;
         console.log('Espera page CTA clicked', { sessionId });
       } catch (error) {
@@ -26,69 +26,110 @@ export default function EsperaPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-purple-800 flex items-center justify-center p-4">
-      {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute w-2 h-2 bg-white/20 rounded-full top-1/4 left-1/4 animate-pulse"></div>
-        <div className="absolute w-3 h-3 bg-white/10 rounded-full top-3/4 right-1/4 animate-bounce"></div>
-        <div className="absolute w-1 h-1 bg-white/30 rounded-full top-1/2 left-3/4 animate-ping"></div>
-      </div>
-
-      <div className="max-w-2xl w-full text-center">
-        {/* Main container */}
-        <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl">
-          {/* Logo */}
-          <div className="text-4xl md:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">
-            AI Code Pro
-          </div>
-          <div className="text-lg text-white/80 mb-8">Ciência dos Dados</div>
-          
-          {/* Main message */}
-          <div className="text-2xl md:text-3xl font-bold text-white mb-6">
-            🎓 Evento Finalizado com Sucesso!
-          </div>
-          
-          {/* Description */}
-          <div className="text-lg text-white/90 mb-8 leading-relaxed">
-            O <strong>AI Code Pro</strong> chegou ao fim, mas sua jornada em IA e Ciência de Dados está apenas começando!
-            <br /><br />
-            Não perca a oportunidade de se tornar um especialista com nossa <strong>Formação Completa</strong>.
-          </div>
-          
-          {/* CTA Button */}
-          <a 
-            href="https://lp.cienciadosdados.com" 
-            onClick={handleCTAClick}
-            className="inline-block bg-gradient-to-r from-orange-500 to-red-500 hover:from-red-500 hover:to-orange-500 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl shadow-lg"
-          >
-            🚀 Quero me Matricular na Formação
-          </a>
-          
-          {/* Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-            <div className="bg-white/10 rounded-2xl p-6 border border-white/10">
-              <div className="text-3xl mb-3">🤖</div>
-              <div className="font-semibold text-white mb-2">IA Avançada</div>
-              <div className="text-white/70 text-sm">LLMs, RAG e Agentes</div>
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* FloatingGrid background - igual ao site original */}
+      <FloatingGrid />
+      
+      {/* Header com mesmo estilo do site */}
+      <header className="w-full py-4 bg-black/60 backdrop-blur-md border-b border-[#0c83fe]/20 sticky top-0 z-50">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center">
+            <div className="relative inline-block group">
+              {/* Efeito de borda luminosa - igual ao header original */}
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-[#0c83fe] via-[#00ff88]/80 to-[#0c83fe] rounded-lg blur-md opacity-90 group-hover:opacity-100 animate-pulse-slow"></div>
+              <div className="absolute -inset-2.5 bg-gradient-to-r from-[#0c83fe]/50 via-[#00ff88]/30 to-[#0c83fe]/50 rounded-lg blur-xl opacity-70 animate-pulse-slow animation-delay-1000"></div>
+              
+              <div className="relative px-4 py-1.5 rounded-lg bg-black/90 border-2 border-[#0c83fe] z-10 shadow-[0_0_10px_rgba(12,131,254,0.7)]">
+                <h1 className="text-xl font-bold text-[#0c83fe] drop-shadow-[0_0_3px_rgba(12,131,254,0.8)]">
+                  AI Code Pro
+                </h1>
+              </div>
             </div>
-            <div className="bg-white/10 rounded-2xl p-6 border border-white/10">
-              <div className="text-3xl mb-3">📊</div>
-              <div className="font-semibold text-white mb-2">Ciência de Dados</div>
-              <div className="text-white/70 text-sm">Análise e Machine Learning</div>
-            </div>
-            <div className="bg-white/10 rounded-2xl p-6 border border-white/10">
-              <div className="text-3xl mb-3">💼</div>
-              <div className="font-semibold text-white mb-2">Carreira</div>
-              <div className="text-white/70 text-sm">Projetos Reais</div>
-            </div>
-          </div>
-          
-          {/* Footer */}
-          <div className="mt-12 pt-8 border-t border-white/20 text-white/60 text-sm">
-            © 2025 Ciência dos Dados - Transformando dados em conhecimento
           </div>
         </div>
-      </div>
+      </header>
+
+      {/* Main content */}
+      <main className="flex-1 flex items-center justify-center px-4 py-12">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Status message */}
+          <div className="mb-8">
+            <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 mb-6">
+              <div className="w-3 h-3 bg-green-500 rounded-full mr-3 animate-pulse"></div>
+              <span className="text-green-400 font-semibold">Evento Finalizado com Sucesso</span>
+            </div>
+          </div>
+
+          {/* Main title */}
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-[#0c83fe] via-[#00ff88] to-[#0c83fe] bg-clip-text text-transparent">
+            Obrigado por Participar!
+          </h1>
+          
+          {/* Subtitle */}
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+            O <span className="text-[#0c83fe] font-semibold">AI Code Pro</span> chegou ao fim, mas sua jornada em 
+            <span className="text-[#00ff88] font-semibold"> IA e Ciência de Dados</span> está apenas começando!
+          </p>
+
+          {/* Description */}
+          <div className="bg-black/40 backdrop-blur-sm border border-[#0c83fe]/20 rounded-2xl p-8 mb-12">
+            <p className="text-lg text-gray-300 mb-6">
+              Você teve acesso a conteúdo exclusivo sobre <strong className="text-[#00ff88]">RAG, LLMs e Agentes de IA</strong>.
+              Agora é hora de dar o próximo passo e se tornar um especialista completo.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div className="text-center">
+                <div className="text-3xl mb-2">🤖</div>
+                <div className="text-[#0c83fe] font-semibold mb-1">IA Avançada</div>
+                <div className="text-sm text-gray-400">LLMs, RAG, Agentes</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl mb-2">📊</div>
+                <div className="text-[#00ff88] font-semibold mb-1">Ciência de Dados</div>
+                <div className="text-sm text-gray-400">ML, Analytics, Python</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl mb-2">💼</div>
+                <div className="text-[#0c83fe] font-semibold mb-1">Carreira</div>
+                <div className="text-sm text-gray-400">Projetos Reais</div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="relative">
+            {/* Glow effect */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-[#0c83fe]/20 via-[#00ff88]/20 to-[#0c83fe]/20 rounded-3xl blur-xl opacity-60"></div>
+            
+            <div className="relative bg-gradient-to-r from-[#0c83fe]/10 to-[#00ff88]/10 border border-[#0c83fe]/30 rounded-2xl p-8">
+              <h2 className="text-2xl font-bold mb-4 text-[#00ff88]">
+                Continue Sua Jornada na Formação Completa
+              </h2>
+              
+              <p className="text-gray-300 mb-6">
+                Transforme seu conhecimento em uma carreira sólida em IA e Ciência de Dados
+              </p>
+              
+              <a 
+                href="https://lp.cienciadosdados.com" 
+                onClick={handleCTAClick}
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#0c83fe] to-[#00ff88] hover:from-[#00ff88] hover:to-[#0c83fe] text-black font-bold rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(12,131,254,0.5)] hover:shadow-[0_0_30px_rgba(0,255,136,0.5)]"
+              >
+                <span className="mr-2">🚀</span>
+                Quero me Matricular na Formação
+              </a>
+            </div>
+          </div>
+
+          {/* Footer message */}
+          <div className="mt-12 text-center">
+            <p className="text-gray-500 text-sm">
+              © 2025 Ciência dos Dados - Transformando dados em conhecimento
+            </p>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
