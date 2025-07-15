@@ -66,75 +66,95 @@ export default function EsperaPage() {
           </h1>
           
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-            O <span className="text-[#0c83fe] font-semibold">AI Code Pro</span> chegou ao fim, mas sua jornada para se tornar um 
-            <span className="text-[#00ff88] font-semibold">Especialista em IA</span> está apenas começando!
-          </p>
+          <div className="bg-gradient-to-r from-[#0c83fe]/10 to-[#00ff88]/10 border border-[#0c83fe]/30 rounded-xl p-6 mb-8">
+            <p className="text-lg md:text-xl text-gray-200 leading-relaxed">
+              🎯 <strong className="text-[#00ff88]">Estão oficialmente abertas as matrículas</strong> para a formação 
+              <span className="text-[#0c83fe] font-bold">AI PRO EXPERT – Especialista em Inteligência Artificial Aplicada</span>.
+            </p>
+            <p className="text-gray-300 mt-4">
+              Essa formação foi criada pra quem <strong>já programa</strong> e agora quer <strong className="text-[#00ff88]">dominar o jogo com IA</strong> — 
+              aplicando os conceitos em soluções reais, automações, produtos e até SaaS.
+            </p>
+          </div>
 
-          {/* Description */}
-          <div className="bg-black/40 backdrop-blur-sm border border-[#0c83fe]/20 rounded-2xl p-8 mb-12">
-            <div className="mb-8">
-              <h3 className="text-xl font-bold text-[#00ff88] mb-4">💡 O que você vai aprender:</h3>
-              <div className="text-left space-y-2 text-gray-300">
-                <div className="flex items-start">
-                  <span className="text-[#00ff88] mr-2">✅</span>
-                  <span>LLMs, Agentes Autônomos, Automação com APIs</span>
+          {/* Content Sections */}
+          <div className="space-y-8 mb-12">
+            {/* Learning Section */}
+            <div className="bg-gradient-to-br from-gray-900/80 to-black/60 backdrop-blur-sm border border-[#0c83fe]/30 rounded-2xl p-8">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#0c83fe] to-[#00ff88] rounded-lg flex items-center justify-center mr-4">
+                  <span className="text-black font-bold text-xl">💡</span>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#00ff88] mr-2">✅</span>
-                  <span>LangChain, CrewAI, Claude, OpenAI, Whisper</span>
+                <h3 className="text-2xl font-bold text-white">O que você vai aprender:</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-start p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
+                  <span className="text-[#00ff88] mr-3 text-lg">✅</span>
+                  <span className="text-gray-200">LLMs, Agentes Autônomos e Automação de Processos</span>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#00ff88] mr-2">✅</span>
-                  <span>RAG com MCP, integração com bancos relacionais e vetoriais</span>
+                <div className="flex items-start p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
+                  <span className="text-[#00ff88] mr-3 text-lg">✅</span>
+                  <span className="text-gray-200">MCP, RAG com LangChain, CrewAI, Anthropic, OpenAI</span>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#00ff88] mr-2">✅</span>
-                  <span>Deploy de aplicações reais e uso de frameworks modernos</span>
+                <div className="flex items-start p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
+                  <span className="text-[#00ff88] mr-3 text-lg">✅</span>
+                  <span className="text-gray-200">Deploy de aplicações reais com IA</span>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#00ff88] mr-2">✅</span>
-                  <span>Projetos prontos para o mercado e portfólio técnico</span>
+                <div className="flex items-start p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
+                  <span className="text-[#00ff88] mr-3 text-lg">✅</span>
+                  <span className="text-gray-200">Banco de Dados Vetorial e Integrações com APIs</span>
+                </div>
+                <div className="flex items-start p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20 md:col-span-2">
+                  <span className="text-[#00ff88] mr-3 text-lg">✅</span>
+                  <span className="text-gray-200">Projetos prontos para mercado e portfólio</span>
                 </div>
               </div>
             </div>
 
-            <div className="mb-8">
-              <h3 className="text-xl font-bold text-[#0c83fe] mb-4">🎓 Você recebe:</h3>
-              <div className="text-left space-y-2 text-gray-300">
-                <div className="flex items-start">
-                  <span className="text-[#0c83fe] mr-2">📜</span>
-                  <span>Certificado com reconhecimento MEC</span>
+            {/* Benefits Section */}
+            <div className="bg-gradient-to-br from-gray-900/80 to-black/60 backdrop-blur-sm border border-[#0c83fe]/30 rounded-2xl p-8">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-[#0c83fe] to-[#00ff88] rounded-lg flex items-center justify-center mr-4">
+                  <span className="text-black font-bold text-xl">🎓</span>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#0c83fe] mr-2">💎</span>
-                  <span>Acesso vitalício + atualizações quinzenais</span>
+                <h3 className="text-2xl font-bold text-white">O que você recebe:</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
+                  <span className="text-[#0c83fe] mr-4 text-2xl">📜</span>
+                  <span className="text-gray-200 text-lg">Certificado reconhecido pelo MEC</span>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-[#0c83fe] mr-2">📲</span>
-                  <span>Mentoria com meu time direto no WhatsApp</span>
+                <div className="flex items-center p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
+                  <span className="text-[#0c83fe] mr-4 text-2xl">💎</span>
+                  <span className="text-gray-200 text-lg">Acesso vitalício com atualizações quinzenais</span>
+                </div>
+                <div className="flex items-center p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
+                  <span className="text-[#0c83fe] mr-4 text-2xl">📲</span>
+                  <span className="text-gray-200 text-lg">Mentoria e suporte direto comigo via WhatsApp</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/30 rounded-xl p-6">
-              <h3 className="text-xl font-bold text-red-400 mb-4">🔥 Matriculando-se hoje, você ainda leva:</h3>
-              <div className="text-left space-y-2 text-gray-300">
-                <div className="flex items-start">
-                  <span className="text-red-400 mr-2">✔</span>
-                  <span>Formação CDPRO – Cientista de Dados Profissional</span>
+            {/* Bonus Section */}
+            <div className="bg-gradient-to-br from-red-900/40 to-orange-900/40 backdrop-blur-sm border border-red-500/40 rounded-2xl p-8">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg flex items-center justify-center mr-4">
+                  <span className="text-white font-bold text-xl">🔥</span>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-red-400 mr-2">✔</span>
-                  <span>Formação Mestre do SAS</span>
+                <h3 className="text-2xl font-bold text-red-400">Bônus exclusivos ao se matricular hoje:</h3>
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center p-4 bg-black/40 rounded-lg border border-red-500/30">
+                  <span className="text-red-400 mr-4 text-xl">✔</span>
+                  <span className="text-gray-200 text-lg">Formação CDPRO – Cientista de Dados Profissional</span>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-red-400 mr-2">✔</span>
-                  <span>Curso Python para IA</span>
+                <div className="flex items-center p-4 bg-black/40 rounded-lg border border-red-500/30">
+                  <span className="text-red-400 mr-4 text-xl">✔</span>
+                  <span className="text-gray-200 text-lg">Formação Mestre do SAS</span>
                 </div>
-                <div className="flex items-start">
-                  <span className="text-red-400 mr-2">✔</span>
-                  <span>Suporte técnico direto no grupo fechado</span>
+                <div className="flex items-center p-4 bg-black/40 rounded-lg border border-red-500/30">
+                  <span className="text-red-400 mr-4 text-xl">✔</span>
+                  <span className="text-gray-200 text-lg">Python para Aplicações de IA</span>
                 </div>
               </div>
             </div>
@@ -146,13 +166,17 @@ export default function EsperaPage() {
             <div className="absolute -inset-4 bg-gradient-to-r from-[#0c83fe]/20 via-[#00ff88]/20 to-[#0c83fe]/20 rounded-3xl blur-xl opacity-60"></div>
             
             <div className="relative bg-gradient-to-r from-[#0c83fe]/10 to-[#00ff88]/10 border border-[#0c83fe]/30 rounded-2xl p-8">
-              <h2 className="text-2xl font-bold mb-4 text-[#00ff88]">
-                AI Pro Expert - Formação Especialista em IA
-              </h2>
-              
-              <p className="text-gray-300 mb-6">
-                Transforme seu conhecimento em uma carreira sólida como <strong>Especialista em IA</strong>
-              </p>
+              <div className="text-center mb-6">
+                <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-[#0c83fe] to-[#00ff88] bg-clip-text text-transparent">
+                  AI PRO EXPERT
+                </h2>
+                <p className="text-xl text-[#00ff88] font-semibold mb-4">
+                  Especialista em Inteligência Artificial Aplicada
+                </p>
+                <p className="text-gray-300">
+                  Para desenvolvedores que querem <strong>dominar o jogo com IA</strong>
+                </p>
+              </div>
               
               <a 
                 href="https://lp.cienciadosdados.com" 
