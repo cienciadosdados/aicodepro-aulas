@@ -7,13 +7,6 @@ import { useEffect } from 'react';
 import { trackAulaView } from '@/lib/tracking-service';
 
 export default function Aula4() {
-  // Redirecionar para lp.cienciadosdados.com
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.location.href = 'https://lp.cienciadosdados.com';
-    }
-  }, []);
-
   const AULA_NUMBER = 4;
   
   const videoData = {

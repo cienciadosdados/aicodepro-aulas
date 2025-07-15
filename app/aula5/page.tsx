@@ -7,13 +7,6 @@ import supabase from '@/lib/supabase-client';
 import { useSearchParams } from 'next/navigation';
 
 export default function Aula5() {
-  // Redirecionar para lp.cienciadosdados.com
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.location.href = 'https://lp.cienciadosdados.com';
-    }
-  }, []);
-
   const searchParams = useSearchParams();
   const AULA_NUMBER = 5;
   

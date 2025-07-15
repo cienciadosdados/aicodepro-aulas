@@ -8,13 +8,6 @@ import { trackAulaView } from '@/lib/tracking-service';
 import { trackAulaViewGA4 } from '@/lib/analytics';
 
 export default function Aula1() {
-  // Redirecionar para lp.cienciadosdados.com
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.location.href = 'https://lp.cienciadosdados.com';
-    }
-  }, []);
-
   const AULA_NUMBER = 1;
   
   const videoData = {
