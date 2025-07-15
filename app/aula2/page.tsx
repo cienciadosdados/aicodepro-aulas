@@ -7,6 +7,13 @@ import { useEffect } from 'react';
 import { trackAulaView } from '@/lib/tracking-service';
 
 export default function Aula2() {
+  // Redirecionar para página de espera
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.location.href = '/espera';
+    }
+  }, []);
+
   const AULA_NUMBER = 2;
   
   const videoData = {
