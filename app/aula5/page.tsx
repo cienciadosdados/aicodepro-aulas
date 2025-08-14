@@ -7,13 +7,6 @@ import supabase from '@/lib/supabase-client';
 import { useSearchParams } from 'next/navigation';
 
 export default function Aula5() {
-  // Redirecionar para página de espera
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.location.href = '/espera';
-    }
-  }, []);
-
   const searchParams = useSearchParams();
   const AULA_NUMBER = 5;
   

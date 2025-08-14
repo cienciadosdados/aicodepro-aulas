@@ -8,8 +8,23 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    // Redirecionar para página de espera
-    router.replace('/espera');
+    // Coletar parâmetros UTM da URL atual
+    const currentUrl = typeof window !== 'undefined' ? new URL(window.location.href) : null;
+    
+    if (currentUrl) {
+      // Coletar parâmetros UTM da URL atual
+      const utmParams = new URLSearchParams();
+      ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(param => {
+        const value = currentUrl.searchParams.get(param);
+        if (value) {
+          utmParams.set(param, value);
+        }
+      });
+
+      // Redirecionar para /aula1 preservando os parâmetros UTM
+      const targetUrl = utmParams.toString() ? `/aula1?${utmParams.toString()}` : '/aula1';
+      router.replace(targetUrl);
+    }
   }, [router]);
 
   return (
