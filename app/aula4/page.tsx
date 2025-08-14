@@ -15,9 +15,10 @@ export default function Aula4() {
     description: 'Na aula final, integramos todos os conceitos aprendidos para construir aplicações completas com IA, incluindo front-end, back-end e implantação em produção.'
   };
 
+  // Dados de download removidos - apenas tracking
   const downloadData = {
-    scriptUrl: '/scripts/Aula4-Project-Four.zip',
-    fileName: 'Aula4-Project-Four.zip',
+    scriptUrl: '',
+    fileName: '',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };

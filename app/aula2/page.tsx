@@ -15,9 +15,10 @@ export default function Aula2() {
     description: 'Na segunda aula, exploramos a integração do WhatsApp com MCP (Model Context Protocol) e Supabase para criar sistemas de multi-agentes que podem interagir através de mensagens e gerenciar dados de forma inteligente.'
   };
 
+  // Dados de download removidos - apenas tracking
   const downloadData = {
-    scriptUrl: '/scripts/Aula2-MCP-Supabase-Multiagents.zip',
-    fileName: 'Aula2-MCP-Supabase-Multiagents.zip',
+    scriptUrl: '',
+    fileName: '',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };

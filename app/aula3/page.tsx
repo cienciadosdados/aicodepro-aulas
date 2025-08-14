@@ -15,9 +15,10 @@ export default function Aula3() {
     description: 'Na terceira aula, exploramos como criar agentes de IA autônomos capazes de executar tarefas complexas, tomar decisões e interagir com APIs e sistemas externos.'
   };
 
+  // Dados de download removidos - apenas tracking
   const downloadData = {
-    scriptUrl: '/scripts/Aula3-project-bugflow.zip',
-    fileName: 'Aula3-project-bugflow.zip',
+    scriptUrl: '',
+    fileName: '',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };

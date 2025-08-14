@@ -16,9 +16,10 @@ export default function Aula5() {
     description: ''
   };
 
+  // Dados de download removidos - apenas tracking
   const downloadData = {
-    scriptUrl: '/scripts/Aula5-Live-Session.zip',
-    fileName: 'Aula5-Live-Session.zip',
+    scriptUrl: '',
+    fileName: '',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };

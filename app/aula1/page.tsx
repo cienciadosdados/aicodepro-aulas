@@ -16,9 +16,10 @@ export default function Aula1() {
     description: 'Nesta primeira aula, você vai aprender os conceitos fundamentais de Large Language Models (LLMs) e Retrieval Augmented Generation (RAG), as tecnologias que estão revolucionando a forma como construímos aplicações de IA.'
   };
 
+  // Dados de download removidos - apenas tracking
   const downloadData = {
-    scriptUrl: '/scripts/Rag_profissional_project.zip',
-    fileName: 'Rag_profissional_project.zip',
+    scriptUrl: '',
+    fileName: '',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };

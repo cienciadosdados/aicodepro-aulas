@@ -95,14 +95,18 @@ export function ConditionalDownload({
     }, 2000);
   };
 
-  // Função para rastrear o download do script
-  const handleDownload = () => {
-    if (!downloadEnabled) return;
+  // Função para rastrear o clique do botão (sem download real)
+  const handleDownloadClick = () => {
+    // Sempre permitir o clique para tracking
+    console.log(`Clique no botão de download da Aula ${aulaNumber} rastreado`);
     
-    // Rastrear o download no Supabase
+    // Rastrear o clique no Supabase
     trackScriptDownload(aulaNumber).catch(error => {
-      console.error('Erro ao rastrear download de script:', error);
+      console.error('Erro ao rastrear clique de download:', error);
     });
+    
+    // Mostrar mensagem informativa (opcional)
+    alert('Download registrado! Em breve os materiais estarão disponíveis.');
   };
 
   return (
@@ -190,51 +194,29 @@ export function ConditionalDownload({
                 </>
               )}
               
-              {isDownloadTemporarilyDisabled ? (
-                <div
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // Manter o tracking mesmo com download desabilitado
-                    if (downloadEnabled) {
-                      handleDownload();
-                    }
-                  }}
-                  className="relative w-full px-8 py-4 rounded-xl inline-flex items-center justify-center gap-2 transition-all duration-200 z-10 bg-gray-600/50 text-gray-400 cursor-not-allowed opacity-60"
-                  title="Download será liberado em breve"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                  </svg>
-                  Baixar Script
-                  <div className="text-xs ml-2 text-gray-500">(Em breve)</div>
-                </div>
-              ) : (
-                <a
-                  href={downloadEnabled ? scriptUrl : '#'}
-                  download={downloadEnabled ? fileName : undefined}
-                  onClick={(e) => {
-                    if (!downloadEnabled) {
-                      e.preventDefault();
-                    } else {
-                      handleDownload();
-                    }
-                  }}
-                  className={`relative w-full px-8 py-4 rounded-xl inline-flex items-center justify-center gap-2 transition-all duration-200 z-10 ${
-                    downloadEnabled
-                      ? 'bg-[#0c83fe] hover:bg-[#0c83fe]/90 text-white'
-                      : 'bg-gray-700/50 text-gray-400 cursor-not-allowed'
-                  }`}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                  </svg>
-                  {downloadEnabled ? 'Baixar Script' : 'Siga-nos para liberar o download'}
-                </a>
-              )}
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  // Sempre fazer tracking, mas só se completou os passos
+                  if (downloadEnabled) {
+                    handleDownloadClick();
+                  }
+                }}
+                disabled={!downloadEnabled}
+                className={`relative w-full px-8 py-4 rounded-xl inline-flex items-center justify-center gap-2 transition-all duration-200 z-10 ${
+                  downloadEnabled
+                    ? 'bg-[#0c83fe] hover:bg-[#0c83fe]/90 text-white cursor-pointer'
+                    : 'bg-gray-600/50 text-gray-400 cursor-not-allowed opacity-60'
+                }`}
+                title={downloadEnabled ? 'Clique para registrar interesse no material' : 'Complete os passos acima para habilitar o download'}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Baixar Script
+              </button>
             </div>
             
             {isDownloadTemporarilyDisabled ? (
