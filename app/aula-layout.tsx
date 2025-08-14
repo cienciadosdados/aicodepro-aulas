@@ -58,7 +58,7 @@ export function AulaLayout({ children, currentAula, downloadData }: AulaLayoutPr
   
   return (
     <>
-      <PromoBar />
+      {/* <PromoBar /> */}
       <FloatingGrid />
       <Header />
       
