@@ -11,7 +11,7 @@ export default function Aula5() {
   const AULA_NUMBER = 5;
   
   const videoData = {
-    url: 'https://www.youtube.com/live/3FIEwO2UPR4',
+    url: 'https://www.youtube.com/watch?v=c35wTOqMt9g',
     title: 'Agentes que criam agentes',
     description: ''
   };
