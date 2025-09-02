@@ -1,46 +1,86 @@
 'use client';
 
 import { useEffect } from 'react';
+import { trackWhatsAppAction } from '@/lib/tracking-service';
 
 export function ChatbotWidget() {
-  // Injetar o script do Chatbase quando o componente for montado
+  // Função para obter a aula atual da URL
+  const getCurrentAulaFromUrl = (): number => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      const aulaMatch = path.match(/\/aula(\d+)/);
+      return aulaMatch ? parseInt(aulaMatch[1], 10) : 0;
+    }
+    return 0;
+  };
+
+  // Função para rastrear interações do chatbot
+  const trackChatbotInteraction = async (action: string) => {
+    try {
+      const currentAula = getCurrentAulaFromUrl();
+      await trackWhatsAppAction(action, currentAula);
+    } catch (error) {
+      console.error('Erro ao rastrear interação do chatbot:', error);
+    }
+  };
+
   useEffect(() => {
     // Verificar se o script já existe para evitar duplicação
-    if (!document.getElementById('x6KwsnirDBy-dwFccyKzb')) {
-      // Criar e adicionar o script do Chatbase
+    if (!document.getElementById('chatbase-script')) {
+      // Script básico do Chatbase
       const script = document.createElement('script');
+      script.id = 'chatbase-script';
       script.innerHTML = `
-        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="x6KwsnirDBy-dwFccyKzb";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-      `;
-      document.body.appendChild(script);
-      
-      // Configurar o chatbot com a chave secreta
-      const configScript = document.createElement('script');
-      configScript.innerHTML = `
-        window.chatbaseConfig = {
+        window.embeddedChatbotConfig = {
           chatbotId: "x6KwsnirDBy-dwFccyKzb",
-          domain: "www.chatbase.co",
-          secretKey: "nujl2m8ify005s912mnylcrpimwp97ua",
-          title: "Agente AI Code Pro",
-          iconUrl: "https://www.chatbase.co/images/chatbot-icon.svg",
-          primaryColor: "#25D366",
-          welcomeMessage: "Olá! Sou o Agente AI Code Pro. Como posso ajudar você hoje?",
-          bubbleButtonIconUrl: "https://cdn-icons-png.flaticon.com/512/134/134937.png",
-          position: "right",
-          alignment: "bottom",
-          theme: "dark",
-          zIndex: 9999
+          domain: "www.chatbase.co"
         };
       `;
-      document.body.appendChild(configScript);
+      document.head.appendChild(script);
+
+      // Script de carregamento do Chatbase
+      const embedScript = document.createElement('script');
+      embedScript.src = "https://www.chatbase.co/embed.min.js";
+      embedScript.setAttribute('chatbotId', 'x6KwsnirDBy-dwFccyKzb');
+      embedScript.setAttribute('domain', 'www.chatbase.co');
+      embedScript.defer = true;
+      document.body.appendChild(embedScript);
+
+      // Aguardar o chatbot carregar e configurar tracking simples
+      setTimeout(() => {
+        // Observar cliques no botão do chatbot
+        const observeChatbotClicks = () => {
+          const observer = new MutationObserver(() => {
+            // Procurar pelo botão do chatbot
+            const chatbotButton = document.querySelector('[data-chatbase-button], .chatbase-bubble, iframe[src*="chatbase"]');
+            if (chatbotButton && !chatbotButton.hasAttribute('data-tracked')) {
+              chatbotButton.setAttribute('data-tracked', 'true');
+              chatbotButton.addEventListener('click', () => {
+                trackChatbotInteraction('chatbot_opened');
+              });
+            }
+
+            // Procurar pelo iframe do chatbot para detectar quando está aberto
+            const chatbotIframe = document.querySelector('iframe[src*="chatbase.co"]');
+            if (chatbotIframe && !chatbotIframe.hasAttribute('data-tracked')) {
+              chatbotIframe.setAttribute('data-tracked', 'true');
+              trackChatbotInteraction('chatbot_loaded');
+            }
+          });
+
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true
+          });
+
+          // Parar de observar após 30 segundos para não sobrecarregar
+          setTimeout(() => observer.disconnect(), 30000);
+        };
+
+        observeChatbotClicks();
+      }, 3000);
     }
-    
-    // Limpar ao desmontar o componente
-    return () => {
-      // Não é necessário remover o script, pois ele deve persistir entre navegações
-    };
   }, []);
 
-  // Este componente não renderiza nada visualmente, apenas injeta o script
   return null;
 }
