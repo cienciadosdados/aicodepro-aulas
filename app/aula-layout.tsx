@@ -9,6 +9,7 @@ import { ConditionalDownload } from '@/components/ConditionalDownload';
 import { LeadIdentifier } from '@/components/LeadIdentifier';
 import { ChatbotWidget } from '@/components/ChatbotWidget';
 import { PromoBar } from '@/components/PromoBar';
+import SurveyPopup from '@/components/SurveyPopup';
 import Link from 'next/link';
 
 interface AulaLayoutProps {
@@ -115,6 +116,11 @@ export function AulaLayout({ children, currentAula, downloadData }: AulaLayoutPr
       
       <Footer />
       <ChatbotWidget />
+      
+      {/* Survey Popup - aparece apenas para leads identificadas que não preencheram pesquisa */}
+      {isIdentified && (
+        <SurveyPopup userEmail={userEmail} />
+      )}
     </>
   );
 }
