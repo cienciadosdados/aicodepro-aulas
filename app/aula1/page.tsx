@@ -16,10 +16,10 @@ export default function Aula1() {
     description: 'Vamos criar um MVP de um SAAS de desenvolvimentos de Agentes de IA embedáveis em Sites, Apps e Whatsapp'
   };
 
-  // Dados de download removidos - apenas tracking
+  // Dados de download para o script da aula 1
   const downloadData = {
-    scriptUrl: '',
-    fileName: '',
+    scriptUrl: '/scripts/ai-hub-pro.zip',
+    fileName: 'ai-hub-pro.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
