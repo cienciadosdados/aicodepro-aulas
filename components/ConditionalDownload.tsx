@@ -95,7 +95,7 @@ export function ConditionalDownload({
     }, 2000);
   };
 
-  // Função para rastrear o clique do botão (sem download real)
+  // Função para fazer o download real do arquivo
   const handleDownloadClick = () => {
     // Sempre permitir o clique para tracking
     console.log(`Clique no botão de download da Aula ${aulaNumber} rastreado`);
@@ -105,8 +105,19 @@ export function ConditionalDownload({
       console.error('Erro ao rastrear clique de download:', error);
     });
     
-    // Mostrar mensagem informativa (opcional)
-    alert('Download registrado! Em breve os materiais estarão disponíveis.');
+    // Fazer o download real do arquivo
+    if (scriptUrl && fileName) {
+      const link = document.createElement('a');
+      link.href = scriptUrl;
+      link.download = fileName;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      // Fallback se não houver URL/nome do arquivo
+      alert('Download registrado! Em breve os materiais estarão disponíveis.');
+    }
   };
 
   return (
