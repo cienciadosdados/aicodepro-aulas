@@ -53,7 +53,20 @@ export default function SurveyPopup({ userEmail, onClose }: SurveyPopupProps) {
 
   const handleSurveyClick = async () => {
     await trackSurveyPopupClick('click_survey');
-    window.location.href = 'https://ai-code-pro.cienciadosdados.com/pesquisa';
+    
+    // Recuperar dados de identificação do localStorage
+    const email = localStorage.getItem('aicodepro_identified_email') || '';
+    const phone = localStorage.getItem('aicodepro_identified_phone') || '';
+    const isProgrammer = localStorage.getItem('aicodepro_identified_isprogrammer') || '';
+    
+    // Construir URL com parâmetros de identificação
+    const params = new URLSearchParams({
+      email: email,
+      phone: phone,
+      isProgrammer: isProgrammer === 'sim' ? 'true' : 'false'
+    });
+    
+    window.location.href = `https://ai-code-pro.cienciadosdados.com/pesquisa?${params.toString()}`;
   };
 
   const handleLaterClick = async () => {
