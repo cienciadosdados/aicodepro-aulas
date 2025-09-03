@@ -16,6 +16,7 @@ export default function PesquisaPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [identifiedEmail, setIdentifiedEmail] = useState('');
   const [isIdentified, setIsIdentified] = useState(false);
+  const [missingData, setMissingData] = useState<string[]>([]);
 
   useEffect(() => {
     // Verificar se o usuário já está identificado
@@ -27,8 +28,15 @@ export default function PesquisaPage() {
       setIdentifiedEmail(email);
       setFormData(prev => ({ ...prev, email }));
       setIsIdentified(true);
+      setMissingData([]);
     } else {
       setIsIdentified(false);
+      // Identificar quais dados estão faltando
+      const missing = [];
+      if (!email) missing.push('Email');
+      if (!phone) missing.push('WhatsApp');
+      if (!isProgrammer) missing.push('Se você é programador');
+      setMissingData(missing);
     }
   }, []);
 
@@ -48,6 +56,23 @@ export default function PesquisaPage() {
     setIsLoading(true);
 
     try {
+      // Verificar se o usuário está identificado antes de enviar
+      const email = localStorage.getItem('aicodepro_identified_email');
+      const phone = localStorage.getItem('aicodepro_identified_phone');
+      const isProgrammer = localStorage.getItem('aicodepro_identified_isprogrammer');
+      
+      if (!email || !phone || !isProgrammer) {
+        // Se não estiver identificado, identificar dados faltantes e forçar identificação
+        const missing = [];
+        if (!email) missing.push('Email');
+        if (!phone) missing.push('WhatsApp');
+        if (!isProgrammer) missing.push('Se você é programador');
+        setMissingData(missing);
+        setIsIdentified(false);
+        setIsLoading(false);
+        return;
+      }
+
       // Rastrear submissão da pesquisa
       await trackSurveySubmission(formData);
       setIsSubmitted(true);
@@ -147,7 +172,29 @@ export default function PesquisaPage() {
   if (!isIdentified) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 flex items-center justify-center p-4">
-        <LeadIdentifier onIdentified={handleLeadIdentified} />
+        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-2xl w-full border border-white/20">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-white mb-4">
+              🔐 Identificação Necessária
+            </h1>
+            <p className="text-xl text-gray-300 mb-4">
+              Para responder a pesquisa, precisamos de alguns dados básicos:
+            </p>
+            {missingData.length > 0 && (
+              <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 mb-6">
+                <h3 className="text-lg font-semibold text-red-300 mb-2">
+                  ⚠️ Dados faltantes:
+                </h3>
+                <ul className="text-red-200 space-y-1">
+                  {missingData.map((item, index) => (
+                    <li key={index}>• {item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+          <LeadIdentifier onIdentified={handleLeadIdentified} />
+        </div>
       </div>
     );
   }
