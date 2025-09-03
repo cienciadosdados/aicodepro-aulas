@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { trackSurveySubmission } from '../../lib/tracking-service';
+import { LeadIdentifier } from '../../components/LeadIdentifier';
 
 export default function PesquisaPage() {
   const [formData, setFormData] = useState({
@@ -14,15 +15,28 @@ export default function PesquisaPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [identifiedEmail, setIdentifiedEmail] = useState('');
+  const [isIdentified, setIsIdentified] = useState(false);
 
   useEffect(() => {
     // Verificar se o usuário já está identificado
     const email = localStorage.getItem('aicodepro_identified_email');
-    if (email) {
+    const phone = localStorage.getItem('aicodepro_identified_phone');
+    const isProgrammer = localStorage.getItem('aicodepro_identified_isprogrammer');
+    
+    if (email && phone && isProgrammer) {
       setIdentifiedEmail(email);
       setFormData(prev => ({ ...prev, email }));
+      setIsIdentified(true);
+    } else {
+      setIsIdentified(false);
     }
   }, []);
+
+  const handleLeadIdentified = (email: string) => {
+    setIdentifiedEmail(email);
+    setFormData(prev => ({ ...prev, email }));
+    setIsIdentified(true);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -125,6 +139,15 @@ export default function PesquisaPage() {
             </div>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  // Se não estiver identificado, mostrar o LeadIdentifier
+  if (!isIdentified) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 flex items-center justify-center p-4">
+        <LeadIdentifier onIdentified={handleLeadIdentified} />
       </div>
     );
   }
