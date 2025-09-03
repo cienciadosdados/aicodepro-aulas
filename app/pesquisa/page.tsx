@@ -72,7 +72,53 @@ export default function PesquisaPage() {
               🎉 Pesquisa Concluída!
             </h1>
             <p className="text-xl text-gray-300 mb-6">
-              Obrigado por participar! Redirecionando...
+              Obrigado por participar! Você está concorrendo ao treinamento de RAG.
+            </p>
+          </div>
+
+          {/* Seção do Treinamento de RAG */}
+          <div className="bg-gradient-to-r from-red-600/20 to-orange-600/20 rounded-xl p-6 mb-6 border border-red-500/30">
+            <h2 className="text-2xl font-bold text-white mb-3 text-center">
+              🎁 Veja seu treinamento gratuito de RAG
+            </h2>
+            <p className="text-gray-300 mb-6 text-center">
+              Como prometido, aqui está seu acesso ao treinamento completo de RAG Profissional com VectorDB:
+            </p>
+            
+            <div className="bg-black/30 rounded-lg p-4 mb-4">
+              <h3 className="text-lg font-semibold text-yellow-400 mb-2">
+                📚 O que você vai aprender:
+              </h3>
+              <ul className="text-gray-300 space-y-1 text-sm">
+                <li>• Implementação profissional de RAG</li>
+                <li>• Integração com bancos de dados vetoriais</li>
+                <li>• Otimização de performance e precisão</li>
+                <li>• Casos de uso reais no mercado</li>
+              </ul>
+            </div>
+
+            <div className="text-center">
+              <a
+                href="https://www.youtube.com/live/Svu5X2I_W08"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-bold rounded-lg transition-all duration-200 transform hover:scale-[1.05] shadow-lg text-lg"
+              >
+                <svg className="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136C4.495 20.455 12 20.455 12 20.455s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                🚀 Assistir Treinamento Gratuito
+              </a>
+            </div>
+            
+            <p className="text-xs text-gray-400 text-center mt-3">
+              ⏰ Acesso liberado por tempo limitado
+            </p>
+          </div>
+
+          <div className="text-center">
+            <p className="text-gray-400 mb-4">
+              Redirecionando em alguns segundos...
             </p>
             <div className="relative w-full h-2 bg-black/40 rounded-full overflow-hidden">
               <div className="absolute top-0 left-0 h-full bg-[#0c83fe] animate-pulse" style={{ width: '100%' }}></div>
