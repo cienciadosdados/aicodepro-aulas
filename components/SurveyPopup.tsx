@@ -53,7 +53,7 @@ export default function SurveyPopup({ userEmail, onClose }: SurveyPopupProps) {
 
   const handleSurveyClick = async () => {
     await trackSurveyPopupClick('click_survey');
-    window.location.href = '/pesquisa';
+    window.location.href = 'https://ai-code-pro.cienciadosdados.com/pesquisa';
   };
 
   const handleLaterClick = async () => {
