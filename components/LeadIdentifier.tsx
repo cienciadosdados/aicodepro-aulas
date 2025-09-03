@@ -10,6 +10,9 @@ interface LeadIdentifierProps {
 
 export function LeadIdentifier({ onIdentified }: LeadIdentifierProps) {
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [isProgrammer, setIsProgrammer] = useState('');
+  const [step, setStep] = useState(1); // 1: email, 2: phone, 3: isProgrammer
   const [isIdentifying, setIsIdentifying] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [isIdentified, setIsIdentified] = useState(false);
@@ -18,8 +21,13 @@ export function LeadIdentifier({ onIdentified }: LeadIdentifierProps) {
   // Verificar se o usuário já foi identificado anteriormente
   useEffect(() => {
     const storedEmail = localStorage.getItem('aicodepro_identified_email');
-    if (storedEmail) {
+    const storedPhone = localStorage.getItem('aicodepro_identified_phone');
+    const storedIsProgrammer = localStorage.getItem('aicodepro_identified_isprogrammer');
+    
+    if (storedEmail && storedPhone && storedIsProgrammer) {
       setEmail(storedEmail);
+      setPhone(storedPhone);
+      setIsProgrammer(storedIsProgrammer);
       setIsIdentified(true);
       onIdentified?.(storedEmail);
     } else {
@@ -32,58 +40,81 @@ export function LeadIdentifier({ onIdentified }: LeadIdentifierProps) {
     }
   }, [onIdentified]);
 
-  const handleIdentify = async (e: React.FormEvent) => {
+  const handleNextStep = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email || !email.includes('@')) {
-      setMessage({ type: 'error', text: 'Por favor, informe um email válido.' });
-      return;
-    }
-    
-    setIsIdentifying(true);
-    setMessage(null);
-    
-    try {
-      // Associar o email do lead com a sessão atual
-      const result = await associateLeadWithSession({ email });
-      
-      // Sempre considerar como sucesso para não bloquear o usuário
-      // A função associateLeadWithSession já foi modificada para sempre retornar sucesso
-      setMessage({ type: 'success', text: 'Identificação realizada com sucesso!' });
-      setIsIdentified(true);
-      setIsModalOpen(false);
-      
-      // Salvar o email no localStorage para futuras visitas
-      localStorage.setItem('aicodepro_identified_email', email);
-      
-      // Notificar o componente pai
-      onIdentified?.(email);
-      
-      // Registrar no console para fins de debug
-      if (result.isNew) {
-        console.log('Novo lead criado:', email);
-      } else if (result.success) {
-        console.log('Lead existente identificado:', email);
-      } else {
-        // Mesmo em caso de erro, não mostrar para o usuário
-        console.warn('Erro ao identificar lead, mas continuando:', result.error);
+    if (step === 1) {
+      // Validar email
+      if (!email || !email.includes('@')) {
+        setMessage({ type: 'error', text: 'Por favor, informe um email válido.' });
+        return;
       }
-    } catch (error) {
-      // Mesmo em caso de erro, não mostrar para o usuário
-      console.error('Erro ao identificar lead, mas continuando:', error);
+      setMessage(null);
+      setStep(2);
+    } else if (step === 2) {
+      // Validar WhatsApp
+      if (!phone || phone.length < 10) {
+        setMessage({ type: 'error', text: 'Por favor, informe um WhatsApp válido.' });
+        return;
+      }
+      setMessage(null);
+      setStep(3);
+    } else if (step === 3) {
+      // Validar isProgrammer
+      if (!isProgrammer) {
+        setMessage({ type: 'error', text: 'Por favor, selecione uma opção.' });
+        return;
+      }
       
-      // Ainda assim, considerar como sucesso para não bloquear o usuário
-      setMessage({ type: 'success', text: 'Identificação realizada com sucesso!' });
-      setIsIdentified(true);
-      setIsModalOpen(false);
+      // Finalizar identificação
+      setIsIdentifying(true);
+      setMessage(null);
       
-      // Salvar o email no localStorage mesmo em caso de erro
-      localStorage.setItem('aicodepro_identified_email', email);
-      
-      // Notificar o componente pai
-      onIdentified?.(email);
-    } finally {
-      setIsIdentifying(false);
+      try {
+        // Associar todos os dados do lead com a sessão atual
+        const result = await associateLeadWithSession({ 
+          email, 
+          phone, 
+          isProgrammer: isProgrammer === 'sim' 
+        });
+        
+        setMessage({ type: 'success', text: 'Identificação realizada com sucesso!' });
+        setIsIdentified(true);
+        setIsModalOpen(false);
+        
+        // Salvar todos os dados no localStorage
+        localStorage.setItem('aicodepro_identified_email', email);
+        localStorage.setItem('aicodepro_identified_phone', phone);
+        localStorage.setItem('aicodepro_identified_isprogrammer', isProgrammer);
+        
+        // Notificar o componente pai
+        onIdentified?.(email);
+        
+        console.log('Lead identificado com sucesso:', { email, phone, isProgrammer });
+      } catch (error) {
+        console.error('Erro ao identificar lead:', error);
+        
+        // Ainda assim, considerar como sucesso para não bloquear o usuário
+        setMessage({ type: 'success', text: 'Identificação realizada com sucesso!' });
+        setIsIdentified(true);
+        setIsModalOpen(false);
+        
+        // Salvar no localStorage mesmo em caso de erro
+        localStorage.setItem('aicodepro_identified_email', email);
+        localStorage.setItem('aicodepro_identified_phone', phone);
+        localStorage.setItem('aicodepro_identified_isprogrammer', isProgrammer);
+        
+        onIdentified?.(email);
+      } finally {
+        setIsIdentifying(false);
+      }
+    }
+  };
+  
+  const handlePrevStep = () => {
+    if (step > 1) {
+      setStep(step - 1);
+      setMessage(null);
     }
   };
   
@@ -146,29 +177,103 @@ export function LeadIdentifier({ onIdentified }: LeadIdentifierProps) {
           </svg>
         </button>
         
-        <h3 className="text-xl font-bold mb-4 text-center text-white">Identifique-se para Liberar os Scripts</h3>
+        <h3 className="text-xl font-bold mb-4 text-center text-white">
+          {step === 1 ? 'Identifique-se para Liberar os Scripts' : 
+           step === 2 ? 'Confirme seu WhatsApp' : 
+           'Você é programador?'}
+        </h3>
         
-        <form onSubmit={handleIdentify} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
-              Seu Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Digite o email que você usou no cadastro"
-              className="w-full px-4 py-3 bg-black/60 border border-[#0c83fe]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0c83fe]/50 text-white"
-              required
-            />
-            <p className="text-xs text-gray-400 mt-1">
-              Use o mesmo email que você utilizou para se inscrever no evento.
-            </p>
-            <p className="text-sm text-[#0c83fe] mt-3">
-              A identificação é necessária para liberar o download dos scripts das aulas.
-            </p>
+        <div className="mb-4">
+          <div className="flex justify-center space-x-2">
+            {[1, 2, 3].map((stepNum) => (
+              <div
+                key={stepNum}
+                className={`w-3 h-3 rounded-full ${
+                  stepNum <= step ? 'bg-[#0c83fe]' : 'bg-gray-600'
+                }`}
+              />
+            ))}
           </div>
+          <p className="text-center text-gray-400 text-sm mt-2">
+            Etapa {step} de 3
+          </p>
+        </div>
+        
+        <form onSubmit={handleNextStep} className="space-y-4">
+          {step === 1 && (
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                Seu Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Digite o email que você usou no cadastro"
+                className="w-full px-4 py-3 bg-black/60 border border-[#0c83fe]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0c83fe]/50 text-white"
+                required
+              />
+              <p className="text-xs text-gray-400 mt-1">
+                Use o mesmo email que você utilizou para se inscrever no evento.
+              </p>
+            </div>
+          )}
+          
+          {step === 2 && (
+            <div>
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-1">
+                Seu WhatsApp
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="(11) 99999-9999"
+                className="w-full px-4 py-3 bg-black/60 border border-[#0c83fe]/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0c83fe]/50 text-white"
+                required
+              />
+              <p className="text-xs text-gray-400 mt-1">
+                Precisamos do WhatsApp para enviar os scripts e atualizações.
+              </p>
+            </div>
+          )}
+          
+          {step === 3 && (
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Você é programador/desenvolvedor?
+              </label>
+              <div className="space-y-2">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="isProgrammer"
+                    value="sim"
+                    checked={isProgrammer === 'sim'}
+                    onChange={(e) => setIsProgrammer(e.target.value)}
+                    className="mr-2 text-[#0c83fe] focus:ring-[#0c83fe]"
+                  />
+                  <span className="text-white">Sim, sou programador/desenvolvedor</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="isProgrammer"
+                    value="nao"
+                    checked={isProgrammer === 'nao'}
+                    onChange={(e) => setIsProgrammer(e.target.value)}
+                    className="mr-2 text-[#0c83fe] focus:ring-[#0c83fe]"
+                  />
+                  <span className="text-white">Não, mas tenho interesse em aprender</span>
+                </label>
+              </div>
+              <p className="text-xs text-gray-400 mt-1">
+                Isso nos ajuda a personalizar o conteúdo para você.
+              </p>
+            </div>
+          )}
           
           {message && (
             <div className={`p-3 rounded-lg text-sm ${
@@ -181,13 +286,25 @@ export function LeadIdentifier({ onIdentified }: LeadIdentifierProps) {
           )}
           
           <div className="flex gap-3">
-            <button
-              type="button"
-              onClick={closeModal}
-              className="flex-1 px-6 py-3 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-800 transition-colors"
-            >
-              Mais tarde
-            </button>
+            {step > 1 && (
+              <button
+                type="button"
+                onClick={handlePrevStep}
+                className="flex-1 px-6 py-3 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-800 transition-colors"
+              >
+                Voltar
+              </button>
+            )}
+            
+            {step === 1 && (
+              <button
+                type="button"
+                onClick={closeModal}
+                className="flex-1 px-6 py-3 rounded-lg border border-gray-600 text-gray-300 hover:bg-gray-800 transition-colors"
+              >
+                Mais tarde
+              </button>
+            )}
             
             <button
               type="submit"
@@ -207,7 +324,7 @@ export function LeadIdentifier({ onIdentified }: LeadIdentifierProps) {
                   Identificando...
                 </>
               ) : (
-                'Identificar-me'
+                step === 3 ? 'Finalizar' : 'Próximo'
               )}
             </button>
           </div>
