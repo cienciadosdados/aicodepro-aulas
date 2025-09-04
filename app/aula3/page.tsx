@@ -15,10 +15,10 @@ export default function Aula3() {
     description: 'Na terceira aula, exploramos como criar agentes de IA autônomos capazes de executar tarefas complexas, tomar decisões e interagir com APIs e sistemas externos.'
   };
 
-  // Dados de download removidos - apenas tracking
+  // Dados de download da aula 3
   const downloadData = {
-    scriptUrl: '',
-    fileName: '',
+    scriptUrl: '/scripts/Agente de IA - VOZ.zip',
+    fileName: 'Agente de IA - VOZ.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
