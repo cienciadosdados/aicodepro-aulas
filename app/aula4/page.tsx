@@ -15,10 +15,10 @@ export default function Aula4() {
     description: 'Na aula final, integramos todos os conceitos aprendidos para construir aplicações completas com IA, incluindo front-end, back-end e implantação em produção.'
   };
 
-  // Dados de download removidos - apenas tracking
+  // Dados de download da aula 4
   const downloadData = {
-    scriptUrl: '',
-    fileName: '',
+    scriptUrl: '/scripts/StartupFlow.zip',
+    fileName: 'StartupFlow.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
