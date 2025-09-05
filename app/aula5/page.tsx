@@ -16,10 +16,10 @@ export default function Aula5() {
     description: ''
   };
 
-  // Dados de download removidos - apenas tracking
+  // Dados de download da aula 5
   const downloadData = {
-    scriptUrl: '',
-    fileName: '',
+    scriptUrl: '/scripts/rowboats.zip',
+    fileName: 'rowboats.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
