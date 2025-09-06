@@ -10,17 +10,54 @@ export default function EsperaPage() {
     trackAulaView(0);
   }, []);
 
-  const handleCTAClick = () => {
-    // Track CTA click
+  const handleCTAClick = async () => {
+    // Track enrollment click
     if (typeof window !== 'undefined') {
-      console.log('CTA clicked - Redirecting to formation page');
+      console.log('CTA clicked - Tracking enrollment intent');
       
-      // Track with existing tracking service
       try {
-        const sessionId = typeof localStorage !== 'undefined' ? localStorage.getItem('aicodepro_session_id') : null;
-        console.log('Espera page CTA clicked', { sessionId });
+        // Capturar dados da sessão
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = localStorage.getItem('aicodepro_session_id') || 
+                         localStorage.getItem('session_id') || 
+                         `sess_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        
+        const enrollmentData = {
+          email: localStorage.getItem('user_email') || null,
+          phone: localStorage.getItem('user_phone') || null,
+          session_id: sessionId,
+          utm_source: urlParams.get('utm_source') || localStorage.getItem('utm_source'),
+          utm_medium: urlParams.get('utm_medium') || localStorage.getItem('utm_medium'),
+          utm_campaign: urlParams.get('utm_campaign') || localStorage.getItem('utm_campaign'),
+          utm_content: urlParams.get('utm_content') || localStorage.getItem('utm_content'),
+          utm_term: urlParams.get('utm_term') || localStorage.getItem('utm_term'),
+          user_agent: navigator.userAgent,
+          referrer: document.referrer,
+          button_text: 'Quero me Tornar Especialista em IA',
+          current_page: '/espera'
+        };
+
+        // Enviar para API
+        const response = await fetch('/api/enrollment-click', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(enrollmentData)
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+          console.log('✅ Enrollment click tracked successfully');
+          localStorage.setItem('has_enrollment_intent', 'true');
+          localStorage.setItem('last_enrollment_click', new Date().toISOString());
+        } else {
+          console.warn('⚠️ Failed to track enrollment click:', result.error);
+        }
+
       } catch (error) {
-        console.error('Error tracking espera CTA:', error);
+        console.error('Error tracking enrollment click:', error);
       }
     }
   };
