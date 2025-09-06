@@ -4,10 +4,17 @@ import { VideoPlayer } from '@/components/VideoPlayer';
 import { ConditionalDownload } from '@/components/ConditionalDownload';
 import { AulaLayout } from '@/app/aula-layout';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { trackAulaView } from '@/lib/tracking-service';
 import { trackAulaViewGA4 } from '@/lib/analytics';
 
 export default function Aula1() {
+  const router = useRouter();
+
+  // Redirecionar para página de espera
+  useEffect(() => {
+    router.replace('/espera');
+  }, [router]);
   const AULA_NUMBER = 1;
   
   const videoData = {

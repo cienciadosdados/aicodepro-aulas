@@ -1,12 +1,19 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { AulaLayout } from '@/app/aula-layout';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import supabase from '@/lib/supabase-client';
 import { useSearchParams } from 'next/navigation';
 
 export default function Aula5() {
+  const router = useRouter();
+
+  // Redirecionar para página de espera
+  useEffect(() => {
+    router.replace('/espera');
+  }, [router]);
   const searchParams = useSearchParams();
   const AULA_NUMBER = 5;
   
