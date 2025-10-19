@@ -5,8 +5,14 @@ import { useEffect, useState } from 'react';
 export function PwaInstallButton() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showButton, setShowButton] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
 
   useEffect(() => {
+    // Verificar se já está instalado
+    if (typeof window !== 'undefined') {
+      setIsStandalone(window.matchMedia('(display-mode: standalone)').matches);
+    }
+
     // Delay de 3 segundos antes de mostrar o botão
     const showTimer = setTimeout(() => {
       setShowButton(true);
@@ -49,7 +55,7 @@ export function PwaInstallButton() {
   };
 
   // Não mostrar se já está instalado
-  if (window.matchMedia('(display-mode: standalone)').matches) {
+  if (isStandalone) {
     return null;
   }
 
