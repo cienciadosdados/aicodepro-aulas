@@ -1,15 +1,12 @@
 // Service Worker para AI Code Pro
-const CACHE_NAME = 'ai-code-pro-cache-v2025-10-19-1';
+const CACHE_NAME = 'ai-code-pro-cache-v2025-10-19-2';
 
 // Recursos para pré-cache (críticos para o LCP)
 const PRECACHE_URLS = [
   '/',
-  '/index.html',
   '/manifest.json',
-  '/hero-bg.webp',
-  '/fonts/inter-var.woff2',
   '/favicon.ico',
-  '/apple-icon.png',
+  '/apple-touch-icon.png',
 ];
 
 // Instalação do Service Worker
