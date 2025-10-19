@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Roboto_Mono } from "next/font/google";
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { PwaTracker } from '@/components/PwaTracker';
 import "./globals.css";
 
 const inter = Inter({
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${robotoMono.variable} antialiased bg-black min-h-screen`}
       >
+        <PwaTracker />
         {children}
       </body>
     </html>
