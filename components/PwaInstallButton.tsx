@@ -13,10 +13,10 @@ export function PwaInstallButton() {
       setIsStandalone(window.matchMedia('(display-mode: standalone)').matches);
     }
 
-    // Delay de 3 segundos antes de mostrar o botão
+    // Delay de 1 segundo antes de mostrar o botão
     const showTimer = setTimeout(() => {
       setShowButton(true);
-    }, 3000);
+    }, 1000);
 
     // Capturar evento de instalação PWA
     const handleBeforeInstallPrompt = (e: any) => {
