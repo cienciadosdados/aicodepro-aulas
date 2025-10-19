@@ -4,16 +4,9 @@ import { VideoPlayer } from '@/components/VideoPlayer';
 import { ConditionalDownload } from '@/components/ConditionalDownload';
 import { AulaLayout } from '@/app/aula-layout';
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { trackAulaView } from '@/lib/tracking-service';
 
 export default function Aula2() {
-  const router = useRouter();
-
-  // Redirecionar para página de espera
-  useEffect(() => {
-    router.replace('/espera');
-  }, [router]);
   const AULA_NUMBER = 2;
   
   const videoData = {
