@@ -69,7 +69,7 @@ export function AulaLayout({ children, currentAula, downloadData }: AulaLayoutPr
             {/* Navegação vertical à esquerda */}
             <div className="w-full md:w-24 flex-shrink-0 mb-6 md:mb-0 md:mr-8">
               <div className="md:sticky md:top-24 md:pt-48">
-                <AulaNavigation currentAula={currentAula} totalAulas={5} />
+                <AulaNavigation currentAula={currentAula} totalAulas={4} />
               </div>
             </div>
             
