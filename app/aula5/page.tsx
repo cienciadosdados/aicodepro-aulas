@@ -62,7 +62,7 @@ export default function Aula5() {
   }, [searchParams]);
 
   return (
-    <AulaLayout currentAula={AULA_NUMBER} downloadData={downloadData}>
+    <AulaLayout currentAula={AULA_NUMBER}>
       <VideoPlayer 
         videoUrl={videoData.url}
         title={videoData.title}

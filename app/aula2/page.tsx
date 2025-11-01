@@ -10,7 +10,7 @@ export default function Aula2() {
   const AULA_NUMBER = 2;
   
   const videoData = {
-    url: 'https://www.youtube.com/watch?v=BGl_S91tKBw',
+    url: 'https://www.youtube.com/watch?v=H_QoEKiZBtA',
     title: 'WhatsApp + MCP Supabase + Multi Agentes',
     description: 'Na segunda aula, exploramos a integração do WhatsApp com MCP (Model Context Protocol) e Supabase para criar sistemas de multi-agentes que podem interagir através de mensagens e gerenciar dados de forma inteligente.'
   };

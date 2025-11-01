@@ -11,7 +11,7 @@ export default function Aula1() {
   const AULA_NUMBER = 1;
   
   const videoData = {
-    url: 'https://www.youtube.com/watch?v=J98Zq1BlsvQ',
+    url: 'https://www.youtube.com/watch?v=34Wgl71W7yQ',
     title: 'SaaS Agents AI (MVP)',
     description: 'Vamos criar um MVP de um SAAS de desenvolvimentos de Agentes de IA embedáveis em Sites, Apps e Whatsapp'
   };
