@@ -61,8 +61,8 @@ export function AulaNavigation({ currentAula, totalAulas }: AulaNavigationProps)
     });
   };
 
-  // Todas as aulas habilitadas
-  const disabledAulas: number[] = [];
+  // Aula 5 temporariamente desabilitada
+  const disabledAulas: number[] = [5];
   const isAulaDisabled = (aulaNum: number) => disabledAulas.includes(aulaNum);
 
   return (
