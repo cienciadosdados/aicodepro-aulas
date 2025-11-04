@@ -21,7 +21,6 @@ export function ConditionalDownload({
   const [followedInstagram, setFollowedInstagram] = useState(false);
   const [followedYoutube, setFollowedYoutube] = useState(false);
   const [downloadEnabled, setDownloadEnabled] = useState(false);
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   
   // Download habilitado para todas as aulas
   const isDownloadTemporarilyDisabled = false;
@@ -96,9 +95,9 @@ export function ConditionalDownload({
     }, 2000);
   };
 
-  // Função para rastrear o clique (SEM fazer download)
+  // Função para rastrear o clique e fazer download
   const handleDownloadClick = () => {
-    // Sempre permitir o clique para tracking
+    // Rastrear o clique
     console.log(`Clique no botão de download da Aula ${aulaNumber} rastreado`);
     
     // Rastrear o clique no Supabase
@@ -106,14 +105,13 @@ export function ConditionalDownload({
       console.error('Erro ao rastrear clique de download:', error);
     });
     
-    // NÃO fazer download - apenas rastrear
-    // Mostrar popup customizado
-    setShowSuccessPopup(true);
-    
-    // Fechar popup automaticamente após 3 segundos
-    setTimeout(() => {
-      setShowSuccessPopup(false);
-    }, 3000);
+    // Fazer o download direto
+    const link = document.createElement('a');
+    link.href = scriptUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -215,7 +213,7 @@ export function ConditionalDownload({
                     ? 'bg-[#0c83fe] hover:bg-[#0c83fe]/90 text-white cursor-pointer'
                     : 'bg-gray-600/50 text-gray-400 cursor-not-allowed opacity-60'
                 }`}
-                title={downloadEnabled ? 'Clique para registrar interesse no material' : 'Complete os passos acima para habilitar o download'}
+                title={downloadEnabled ? 'Clique para baixar o script' : 'Complete os passos acima para habilitar o download'}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -240,40 +238,6 @@ export function ConditionalDownload({
           </div>
         </div>
       </div>
-      
-      {/* Popup de Sucesso */}
-      {showSuccessPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="relative bg-gradient-to-br from-green-600/90 to-green-700/90 backdrop-blur-md rounded-2xl border-2 border-green-400/50 p-8 max-w-md w-full shadow-2xl animate-in slide-in-from-bottom-5 duration-300">
-            <div className="absolute -inset-1 bg-gradient-to-r from-green-400 to-green-600 rounded-2xl blur-xl opacity-50"></div>
-            
-            <div className="relative text-center">
-              <div className="mb-4 flex justify-center">
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                    <polyline points="20 6 9 17 4 12"></polyline>
-                  </svg>
-                </div>
-              </div>
-              
-              <h3 className="text-2xl font-bold text-white mb-2">
-                ✅ Interesse Registrado!
-              </h3>
-              
-              <p className="text-white/90 text-lg">
-                Em breve os materiais estarão disponíveis.
-              </p>
-              
-              <button
-                onClick={() => setShowSuccessPopup(false)}
-                className="mt-6 px-6 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-all duration-200"
-              >
-                OK
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
