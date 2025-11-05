@@ -11,14 +11,14 @@ export default function Aula2() {
   
   const videoData = {
     url: 'https://www.youtube.com/watch?v=H_QoEKiZBtA',
-    title: 'WhatsApp + MCP Supabase + Multi Agentes',
+    title: 'AI DATA ASSISTANT MULTI-AGENTS',
     description: 'Na segunda aula, exploramos a integração do WhatsApp com MCP (Model Context Protocol) e Supabase para criar sistemas de multi-agentes que podem interagir através de mensagens e gerenciar dados de forma inteligente.'
   };
 
   // Dados de download da Aula 2
   const downloadData = {
-    scriptUrl: '/scripts/whatsapp-agent-supabase.zip',
-    fileName: 'whatsapp-agent-supabase.zip',
+    scriptUrl: '/scripts/ai-data-assistant.zip',
+    fileName: 'ai-data-assistant.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
