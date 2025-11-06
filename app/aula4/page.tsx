@@ -17,8 +17,8 @@ export default function Aula4() {
 
   // Dados de download da aula 4
   const downloadData = {
-    scriptUrl: '/scripts/StartupFlow.zip',
-    fileName: 'StartupFlow.zip',
+    scriptUrl: '/scripts/rowboats.zip',
+    fileName: 'rowboats.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
