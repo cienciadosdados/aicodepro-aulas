@@ -22,8 +22,8 @@ export function ConditionalDownload({
   const [followedYoutube, setFollowedYoutube] = useState(false);
   const [downloadEnabled, setDownloadEnabled] = useState(false);
   
-  // Download habilitado para todas as aulas
-  const isDownloadTemporarilyDisabled = false;
+  // Download desabilitado - apenas captura intenção do usuário
+  const isDownloadTemporarilyDisabled = true;
 
   // Inicializar o ID de sessão quando o componente é montado
   useEffect(() => {
@@ -95,23 +95,26 @@ export function ConditionalDownload({
     }, 2000);
   };
 
-  // Função para rastrear o clique e fazer download
+  // Função para rastrear a INTENÇÃO de download (sem executar download real)
   const handleDownloadClick = () => {
-    // Rastrear o clique
-    console.log(`Clique no botão de download da Aula ${aulaNumber} rastreado`);
+    // Rastrear a intenção de download
+    console.log(`Intenção de download da Aula ${aulaNumber} capturada`);
     
-    // Rastrear o clique no Supabase
+    // Rastrear a intenção no Supabase
     trackScriptDownload(aulaNumber).catch(error => {
-      console.error('Erro ao rastrear clique de download:', error);
+      console.error('Erro ao rastrear intenção de download:', error);
     });
     
-    // Fazer o download direto
-    const link = document.createElement('a');
-    link.href = scriptUrl;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Mostrar mensagem ao usuário
+    alert('Sua intenção de download foi registrada! Em breve disponibilizaremos os scripts para download.');
+    
+    // NÃO fazer o download real
+    // const link = document.createElement('a');
+    // link.href = scriptUrl;
+    // link.download = fileName;
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
   };
 
   return (
@@ -192,7 +195,7 @@ export function ConditionalDownload({
             
             {/* Container para o botão de download com efeito de borda intensificado */}
             <div className="relative group">
-              {downloadEnabled && (
+              {(isDownloadTemporarilyDisabled || downloadEnabled) && (
                 <>
                   <div className="absolute -inset-3 bg-gradient-to-r from-[#0c83fe]/70 via-[#00ff88]/50 to-[#0c83fe]/70 rounded-xl blur-xl opacity-80 group-hover:opacity-90 animate-pulse-slow"></div>
                   <div className="absolute -inset-1.5 bg-gradient-to-r from-[#0c83fe] via-[#00ff88]/80 to-[#0c83fe] rounded-xl blur-md opacity-90 group-hover:opacity-100 animate-pulse-slower"></div>
@@ -202,18 +205,21 @@ export function ConditionalDownload({
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  // Sempre fazer tracking, mas só se completou os passos
-                  if (downloadEnabled) {
+                  // Se download está temporariamente desabilitado, apenas rastreia intenção
+                  if (isDownloadTemporarilyDisabled) {
+                    handleDownloadClick();
+                  } else if (downloadEnabled) {
+                    // Lógica antiga: só baixa se completou os passos
                     handleDownloadClick();
                   }
                 }}
-                disabled={!downloadEnabled}
+                disabled={!isDownloadTemporarilyDisabled && !downloadEnabled}
                 className={`relative w-full px-8 py-4 rounded-xl inline-flex items-center justify-center gap-2 transition-all duration-200 z-10 ${
-                  downloadEnabled
+                  (isDownloadTemporarilyDisabled || downloadEnabled)
                     ? 'bg-[#0c83fe] hover:bg-[#0c83fe]/90 text-white cursor-pointer'
                     : 'bg-gray-600/50 text-gray-400 cursor-not-allowed opacity-60'
                 }`}
-                title={downloadEnabled ? 'Clique para baixar o script' : 'Complete os passos acima para habilitar o download'}
+                title={isDownloadTemporarilyDisabled ? 'Clique para registrar seu interesse' : (downloadEnabled ? 'Clique para baixar o script' : 'Complete os passos acima para habilitar o download')}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -226,7 +232,7 @@ export function ConditionalDownload({
             
             {isDownloadTemporarilyDisabled ? (
               <p className="text-sm text-gray-400 mt-2">
-                Download será liberado em breve
+                Clique para registrar seu interesse. Scripts serão liberados em breve.
               </p>
             ) : (
               !downloadEnabled && (
