@@ -31,11 +31,11 @@ export function WebinarCTA({ ctaUrl, aulaNumber }: WebinarCTAProps) {
       <div className="absolute -inset-1.5 bg-gradient-to-r from-[#0c83fe] via-[#00ff88]/80 to-[#0c83fe] rounded-xl blur-md opacity-90 animate-pulse-slower"></div>
       
       <div className="relative bg-black/80 backdrop-blur-sm rounded-xl border-2 border-[#0c83fe]/70 p-6 z-10 shadow-glow-blue">
-        <h3 className="text-xl font-bold mb-4 text-center">Quer aprender mais sobre Agentes de IA?</h3>
+        <h3 className="text-xl font-bold mb-4 text-center">Quer se tornar um especialista em Agentes de IA?</h3>
         
         <div className="space-y-4">
           <p className="text-gray-300 text-center">
-            Acesse nossa página e descubra como criar agentes de IA poderosos para seu negócio.
+            Conheça a formação AI PRO EXPERT e domine a criação de agentes de IA do zero ao avançado.
           </p>
           
           {/* Container para o botão CTA com efeito de borda intensificado */}
@@ -52,7 +52,7 @@ export function WebinarCTA({ ctaUrl, aulaNumber }: WebinarCTAProps) {
                 <polyline points="15 3 21 3 21 9"></polyline>
                 <line x1="10" y1="14" x2="21" y2="3"></line>
               </svg>
-              Acessar Agora
+              Conhecer a Formação
             </button>
           </div>
         </div>
