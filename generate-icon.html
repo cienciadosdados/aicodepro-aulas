@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gerador de Ícone AI Code Pro</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        #canvas {
+            border: 2px solid #0c83fe;
+            margin: 20px 0;
+        }
+        button {
+            background: #0c83fe;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0a6dd4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Ícone AI Code Pro</h1>
+    <canvas id="canvas" width="512" height="512"></canvas>
+    <br>
+    <button onclick="generateIcon(192)">Gerar 192x192</button>
+    <button onclick="generateIcon(512)">Gerar 512x512</button>
+    
+    <script>
+        function generateIcon(size) {
+            const canvas = document.getElementById('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#0c83fe');
+            gradient.addColorStop(1, '#7c3aed');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Texto AI
+            ctx.fillStyle = '#ffffff';
+            ctx.font = `bold ${size * 0.35}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('AI', size / 2, size / 2.2);
+            
+            // Texto CODE
+            ctx.font = `bold ${size * 0.15}px Arial`;
+            ctx.fillText('CODE', size / 2, size / 1.5);
+            
+            // Texto PRO
+            ctx.font = `bold ${size * 0.12}px Arial`;
+            ctx.fillStyle = '#fbbf24';
+            ctx.fillText('PRO', size / 2, size / 1.25);
+            
+            // Download
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon-${size}x${size}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+        
+        // Gerar preview inicial
+        window.onload = function() {
+            generateIcon(512);
+        };
+    </script>
+</body>
+</html>

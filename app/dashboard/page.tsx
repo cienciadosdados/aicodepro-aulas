@@ -112,14 +112,20 @@ export default function Dashboard() {
         .from('enrollment_clicks')
         .select('*');
         
-      if (enrollmentError) throw enrollmentError;
+      if (enrollmentError) {
+        console.error('Erro ao buscar enrollment_clicks:', enrollmentError);
+        // Não quebrar se der erro, continuar com dados vazios
+      }
       
       // Buscar dados de enrollment clicks anônimos
       const { data: anonymousEnrollmentData, error: anonymousEnrollmentError } = await supabase
         .from('anonymous_enrollment_clicks')
         .select('*');
         
-      if (anonymousEnrollmentError) throw anonymousEnrollmentError;
+      if (anonymousEnrollmentError) {
+        console.error('Erro ao buscar anonymous_enrollment_clicks:', anonymousEnrollmentError);
+        // Não quebrar se der erro, continuar com dados vazios
+      }
       
       // Buscar leads com intenção de matrícula
       const { data: leadsWithIntentData, error: leadsWithIntentError } = await supabase
@@ -127,7 +133,16 @@ export default function Dashboard() {
         .select('*')
         .eq('has_enrollment_intent', true);
         
-      if (leadsWithIntentError) throw leadsWithIntentError;
+      if (leadsWithIntentError) {
+        console.error('Erro ao buscar leads com intenção:', leadsWithIntentError);
+        // Não quebrar se der erro, continuar com dados vazios
+      }
+      
+      console.log('Dados de enrollment:', {
+        enrollmentClicks: enrollmentData?.length || 0,
+        anonymousClicks: anonymousEnrollmentData?.length || 0,
+        leadsWithIntent: leadsWithIntentData?.length || 0
+      });
       
       // Buscar estatísticas por tier
       const { data: tierData, error: tierError } = await supabase
@@ -171,6 +186,17 @@ export default function Dashboard() {
         else tierStats.tier3++;
       });
       
+      // Calcular métricas de enrollment
+      const totalEnrollmentClicks = (enrollmentData?.length || 0) + (anonymousEnrollmentData?.length || 0);
+      const leadsWithEnrollmentIntent = leadsWithIntentData?.length || 0;
+      
+      console.log('Métricas calculadas:', {
+        enrollmentData: enrollmentData?.length || 0,
+        anonymousData: anonymousEnrollmentData?.length || 0,
+        totalEnrollmentClicks,
+        leadsWithEnrollmentIntent
+      });
+      
       // Atualizar estado com as estatísticas
       setStats({
         totalViews: viewsData?.length || 0,
@@ -180,9 +206,9 @@ export default function Dashboard() {
         totalSocialActions: socialData?.length || 0,
         socialActionsByPlatform,
         totalNavigations: navData?.length || 0,
-        totalEnrollmentClicks: enrollmentData?.length || 0,
+        totalEnrollmentClicks,
         anonymousEnrollmentClicks: anonymousEnrollmentData?.length || 0,
-        leadsWithEnrollmentIntent: leadsWithIntentData?.length || 0,
+        leadsWithEnrollmentIntent,
         tierStats,
       });
       
