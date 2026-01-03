@@ -59,7 +59,7 @@ export function AulaLayout({ children, currentAula, downloadData }: AulaLayoutPr
   
   return (
     <>
-      <BlackFridayBar />
+      {/* <BlackFridayBar /> */}
       <FloatingGrid />
       <Header />
       
