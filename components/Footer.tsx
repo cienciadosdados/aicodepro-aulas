@@ -71,7 +71,7 @@ export function Footer() {
               >
                 Política de Privacidade
               </Link>
-              <span className="text-gray-400">© COPYRIGHT 2025 - AI Code Pro - Todos os direitos reservados.</span>
+              <span className="text-gray-400">© COPYRIGHT 2026 - AI Code Pro - Todos os direitos reservados.</span>
             </div>
             <p className="text-gray-400">
               Ciência dos Dados e MLN Treinamentos LTDA<br />
