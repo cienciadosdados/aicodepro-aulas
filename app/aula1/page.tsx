@@ -18,8 +18,8 @@ export default function Aula1() {
 
   // Dados de download para o script da aula 1
   const downloadData = {
-    scriptUrl: '/scripts/Project 1 - SaaS MVP.zip',
-    fileName: 'Project 1 - SaaS MVP.zip',
+    scriptUrl: '/scripts/Project1.zip',
+    fileName: 'Project1.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
