@@ -22,8 +22,8 @@ export function ConditionalDownload({
   const [followedYoutube, setFollowedYoutube] = useState(false);
   const [downloadEnabled, setDownloadEnabled] = useState(false);
   
-  // Download desabilitado - apenas captura intenção do usuário
-  const isDownloadTemporarilyDisabled = true;
+  // Download habilitado - executa download real com rastreamento
+  const isDownloadTemporarilyDisabled = false;
 
   // Inicializar o ID de sessão quando o componente é montado
   useEffect(() => {
@@ -95,26 +95,22 @@ export function ConditionalDownload({
     }, 2000);
   };
 
-  // Função para rastrear a INTENÇÃO de download (sem executar download real)
+  // Função para rastrear e executar o download
   const handleDownloadClick = () => {
-    // Rastrear a intenção de download
-    console.log(`Intenção de download da Aula ${aulaNumber} capturada`);
+    // Rastrear o download no Supabase
+    console.log(`Download da Aula ${aulaNumber} iniciado`);
     
-    // Rastrear a intenção no Supabase
     trackScriptDownload(aulaNumber).catch(error => {
-      console.error('Erro ao rastrear intenção de download:', error);
+      console.error('Erro ao rastrear download:', error);
     });
     
-    // Mostrar mensagem ao usuário
-    alert('Sua intenção de download foi registrada! Em breve disponibilizaremos os scripts para download.');
-    
-    // NÃO fazer o download real
-    // const link = document.createElement('a');
-    // link.href = scriptUrl;
-    // link.download = fileName;
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
+    // Executar o download real
+    const link = document.createElement('a');
+    link.href = scriptUrl;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
