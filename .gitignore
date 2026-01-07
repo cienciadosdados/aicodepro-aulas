@@ -26,7 +26,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-# .env*.local (removido para permitir .env.local do dashboard)
+.env*.local
+.env.local
 
 # vercel
 .vercel
@@ -42,3 +43,4 @@ next-env.d.ts
 .kiro/steering/byterover-rules.md
 .qoder/rules/byterover-rules.md
 .augment/rules/byterover-rules.md
+.vercel
