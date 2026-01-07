@@ -29,6 +29,22 @@ yarn-error.log*
 .env*.local
 .env.local
 
+# Scripts de teste com credenciais
+verify-tracking*.js
+test-tracking*.html
+query-*.js
+qualified-leads*.js
+*-leads*.js
+direct-query.mjs
+check-*.js
+test-*.js
+investigate-*.js
+fix-triggers-simple.js
+triple-action-instagram.js
+temp-*.js
+whatsapp-*.js
+whatsapp-*.html
+
 # vercel
 .vercel
 
