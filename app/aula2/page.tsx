@@ -10,15 +10,15 @@ export default function Aula2() {
   const AULA_NUMBER = 2;
   
   const videoData = {
-    url: 'https://www.youtube.com/watch?v=Oq2K2VkhZWU',
+    url: 'https://www.youtube.com/watch?v=ywOxetAOIrU',
     title: 'Projeto 2',
     description: 'Desenvolvendo Aplicações Profissionais de IA'
   };
 
   // Dados de download da Aula 2
   const downloadData = {
-    scriptUrl: '/scripts/ai-data-assistant.zip',
-    fileName: 'ai-data-assistant.zip',
+    scriptUrl: '/scripts/Project02.zip',
+    fileName: 'Project02.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
