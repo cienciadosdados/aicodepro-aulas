@@ -44,6 +44,8 @@ triple-action-instagram.js
 temp-*.js
 whatsapp-*.js
 whatsapp-*.html
+create-env.js
+LEADS-*.md
 
 # vercel
 .vercel
