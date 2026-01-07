@@ -5,8 +5,16 @@ export async function POST(request: NextRequest) {
     try {
         const { password } = await request.json();
         
-        // Senha definida no .env.local
-        const correctPassword = process.env.DASHBOARD_PASSWORD || 'aicodepro2025';
+        // Senha definida no .env.local (obrigatório)
+        const correctPassword = process.env.DASHBOARD_PASSWORD;
+        
+        if (!correctPassword) {
+            console.error('DASHBOARD_PASSWORD não configurado');
+            return NextResponse.json(
+                { success: false, message: 'Erro de configuração do servidor' }, 
+                { status: 500 }
+            );
+        }
         
         if (password === correctPassword) {
             // Criar token simples (em produção, usar JWT)
