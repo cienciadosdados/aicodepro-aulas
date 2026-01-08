@@ -17,8 +17,8 @@ export default function Aula3() {
 
   // Dados de download da aula 3
   const downloadData = {
-    scriptUrl: '/scripts/Agente de IA - VOZ.zip',
-    fileName: 'Agente de IA - VOZ.zip',
+    scriptUrl: '/scripts/Project03.zip',
+    fileName: 'Project03.zip',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
