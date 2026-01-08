@@ -17,8 +17,8 @@ export default function Aula4() {
 
   // Dados de download da aula 4
   const downloadData = {
-    scriptUrl: '/scripts/rowboats.zip',
-    fileName: 'rowboats.zip',
+    scriptUrl: 'https://github.com/cienciadosdados/aihub',
+    fileName: 'aihub',
     instagramUrl: 'https://instagram.com/cienciadosdados',
     youtubeUrl: 'https://youtube.com/c/cienciadosdados'
   };
