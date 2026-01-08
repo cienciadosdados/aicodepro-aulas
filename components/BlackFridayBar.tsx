@@ -8,10 +8,10 @@ export function BlackFridayBar() {
   const [isClosing, setIsClosing] = useState(false);
 
   useEffect(() => {
-    // Mostrar a tarja após 5 segundos
+    // Mostrar a tarja após 3 segundos
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -36,7 +36,7 @@ export function BlackFridayBar() {
 
   return (
     <div 
-      className={`fixed bottom-0 left-0 right-0 z-[9999] bg-gradient-to-r from-black via-yellow-600 to-black text-white shadow-lg transition-all duration-300 border-t-2 border-yellow-500 ${
+      className={`fixed bottom-0 left-0 right-0 z-[9999] bg-gradient-to-r from-emerald-900 via-emerald-600 to-emerald-900 text-white shadow-lg transition-all duration-300 border-t-2 border-emerald-400 ${
         isClosing ? 'transform translate-y-full opacity-0' : 'transform translate-y-0 opacity-100'
       }`}
     >
@@ -44,14 +44,14 @@ export function BlackFridayBar() {
         <div className="flex items-center space-x-4">
           {/* Ícone de urgência */}
           <div className="flex items-center space-x-2">
-            <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
-            <span className="font-bold text-lg">🔥 BLACK FRIDAY</span>
-            <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-emerald-300 rounded-full animate-pulse"></div>
+            <span className="font-bold text-lg">🚀 MATRÍCULAS ABERTAS</span>
+            <div className="w-2 h-2 bg-emerald-300 rounded-full animate-pulse"></div>
           </div>
           
           {/* Texto promocional */}
           <span className="hidden md:inline text-sm">
-            Use o cupom <strong className="text-yellow-400">BLACK25</strong> - Oferta exclusiva por tempo limitado!
+            <strong className="text-emerald-300">20% OFF</strong> só hoje! Garanta sua vaga na formação AI Pro Expert
           </span>
         </div>
         
@@ -62,9 +62,9 @@ export function BlackFridayBar() {
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleBannerClick}
-            className="bg-yellow-500 text-black px-4 py-2 rounded-lg font-bold text-sm hover:bg-yellow-400 transition-colors shadow-md"
+            className="bg-white text-emerald-800 px-4 py-2 rounded-lg font-bold text-sm hover:bg-emerald-100 transition-colors shadow-md"
           >
-            CUPOM: BLACK25
+            QUERO 20% OFF
           </a>
           
           {/* Botão fechar */}
@@ -81,7 +81,7 @@ export function BlackFridayBar() {
       {/* Versão mobile simplificada */}
       <div className="md:hidden px-4 pb-2">
         <p className="text-xs text-center">
-          Use o cupom <strong className="text-yellow-400">BLACK25</strong> - Oferta exclusiva!
+          <strong className="text-emerald-300">20% OFF</strong> só hoje! Garanta sua vaga!
         </p>
       </div>
     </div>

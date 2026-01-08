@@ -4,6 +4,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { PwaTracker } from '@/components/PwaTracker';
 import { PwaInstallButton } from '@/components/PwaInstallButton';
 import { ServiceWorkerRegistration } from '@/components/ServiceWorkerRegistration';
+import { BlackFridayBar } from '@/components/BlackFridayBar';
 import "./globals.css";
 
 const inter = Inter({
@@ -56,6 +57,7 @@ export default function RootLayout({
         <ServiceWorkerRegistration />
         <PwaTracker />
         <PwaInstallButton />
+        <BlackFridayBar />
         {children}
       </body>
     </html>
