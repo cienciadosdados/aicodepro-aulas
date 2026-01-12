@@ -3,6 +3,16 @@
 import { useEffect } from 'react';
 import { trackAulaView } from '@/lib/tracking-service';
 import { FloatingGrid } from '@/components/FloatingGrid';
+import { 
+  HiOutlineLightBulb, 
+  HiOutlineAcademicCap, 
+  HiOutlineFire,
+  HiOutlineCheckCircle,
+  HiOutlineDocumentText,
+  HiOutlineSparkles,
+  HiOutlineChatBubbleLeftRight,
+  HiOutlineRocketLaunch
+} from 'react-icons/hi2';
 
 export default function EsperaPage() {
   useEffect(() => {
@@ -105,7 +115,7 @@ export default function EsperaPage() {
           {/* Subtitle */}
           <div className="bg-gradient-to-r from-[#0c83fe]/10 to-[#00ff88]/10 border border-[#0c83fe]/30 rounded-xl p-6 mb-8">
             <p className="text-lg md:text-xl text-gray-200 leading-relaxed">
-              🎯 <strong className="text-[#00ff88]">Estão oficialmente abertas as matrículas</strong> para a formação 
+              <strong className="text-[#00ff88]">Estão oficialmente abertas as matrículas</strong> para a formação{' '}
               <span className="text-[#0c83fe] font-bold">AI PRO EXPERT – Especialista em Inteligência Artificial Aplicada</span>.
             </p>
             <p className="text-gray-300 mt-4">
@@ -120,29 +130,29 @@ export default function EsperaPage() {
             <div className="bg-gradient-to-br from-gray-900/80 to-black/60 backdrop-blur-sm border border-[#0c83fe]/30 rounded-2xl p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-gradient-to-r from-[#0c83fe] to-[#00ff88] rounded-lg flex items-center justify-center mr-4">
-                  <span className="text-black font-bold text-xl">💡</span>
+                  <HiOutlineLightBulb className="w-7 h-7 text-black" />
                 </div>
                 <h3 className="text-2xl font-bold text-white">O que você vai aprender:</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex items-start p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
-                  <span className="text-[#00ff88] mr-3 text-lg">✅</span>
+                  <HiOutlineCheckCircle className="w-5 h-5 text-[#00ff88] mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200">LLMs, Agentes Autônomos e Automação de Processos</span>
                 </div>
                 <div className="flex items-start p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
-                  <span className="text-[#00ff88] mr-3 text-lg">✅</span>
+                  <HiOutlineCheckCircle className="w-5 h-5 text-[#00ff88] mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200">MCP, RAG com LangChain, CrewAI, Anthropic, OpenAI</span>
                 </div>
                 <div className="flex items-start p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
-                  <span className="text-[#00ff88] mr-3 text-lg">✅</span>
+                  <HiOutlineCheckCircle className="w-5 h-5 text-[#00ff88] mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200">Deploy de aplicações reais com IA</span>
                 </div>
                 <div className="flex items-start p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
-                  <span className="text-[#00ff88] mr-3 text-lg">✅</span>
+                  <HiOutlineCheckCircle className="w-5 h-5 text-[#00ff88] mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200">Banco de Dados Vetorial e Integrações com APIs</span>
                 </div>
                 <div className="flex items-start p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20 md:col-span-2">
-                  <span className="text-[#00ff88] mr-3 text-lg">✅</span>
+                  <HiOutlineCheckCircle className="w-5 h-5 text-[#00ff88] mr-3 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-200">Projetos prontos para mercado e portfólio</span>
                 </div>
               </div>
@@ -152,21 +162,21 @@ export default function EsperaPage() {
             <div className="bg-gradient-to-br from-gray-900/80 to-black/60 backdrop-blur-sm border border-[#0c83fe]/30 rounded-2xl p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-gradient-to-r from-[#0c83fe] to-[#00ff88] rounded-lg flex items-center justify-center mr-4">
-                  <span className="text-black font-bold text-xl">🎓</span>
+                  <HiOutlineAcademicCap className="w-7 h-7 text-black" />
                 </div>
                 <h3 className="text-2xl font-bold text-white">O que você recebe:</h3>
               </div>
               <div className="space-y-4">
                 <div className="flex items-center p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
-                  <span className="text-[#0c83fe] mr-4 text-2xl">📜</span>
+                  <HiOutlineDocumentText className="w-6 h-6 text-[#0c83fe] mr-4 flex-shrink-0" />
                   <span className="text-gray-200 text-lg">Certificado reconhecido pelo MEC</span>
                 </div>
                 <div className="flex items-center p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
-                  <span className="text-[#0c83fe] mr-4 text-2xl">💎</span>
+                  <HiOutlineSparkles className="w-6 h-6 text-[#0c83fe] mr-4 flex-shrink-0" />
                   <span className="text-gray-200 text-lg">Acesso vitalício com atualizações quinzenais</span>
                 </div>
                 <div className="flex items-center p-4 bg-black/30 rounded-lg border border-[#0c83fe]/20">
-                  <span className="text-[#0c83fe] mr-4 text-2xl">📲</span>
+                  <HiOutlineChatBubbleLeftRight className="w-6 h-6 text-[#0c83fe] mr-4 flex-shrink-0" />
                   <span className="text-gray-200 text-lg">Mentoria e suporte direto comigo via WhatsApp</span>
                 </div>
               </div>
@@ -176,21 +186,21 @@ export default function EsperaPage() {
             <div className="bg-gradient-to-br from-red-900/40 to-orange-900/40 backdrop-blur-sm border border-red-500/40 rounded-2xl p-8">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg flex items-center justify-center mr-4">
-                  <span className="text-white font-bold text-xl">🔥</span>
+                  <HiOutlineFire className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-red-400">Bônus exclusivos ao se matricular hoje:</h3>
               </div>
               <div className="space-y-4">
                 <div className="flex items-center p-4 bg-black/40 rounded-lg border border-red-500/30">
-                  <span className="text-red-400 mr-4 text-xl">✔</span>
+                  <HiOutlineCheckCircle className="w-5 h-5 text-red-400 mr-4 flex-shrink-0" />
                   <span className="text-gray-200 text-lg">Formação CDPRO – Cientista de Dados Profissional</span>
                 </div>
                 <div className="flex items-center p-4 bg-black/40 rounded-lg border border-red-500/30">
-                  <span className="text-red-400 mr-4 text-xl">✔</span>
+                  <HiOutlineCheckCircle className="w-5 h-5 text-red-400 mr-4 flex-shrink-0" />
                   <span className="text-gray-200 text-lg">Formação Mestre do SAS</span>
                 </div>
                 <div className="flex items-center p-4 bg-black/40 rounded-lg border border-red-500/30">
-                  <span className="text-red-400 mr-4 text-xl">✔</span>
+                  <HiOutlineCheckCircle className="w-5 h-5 text-red-400 mr-4 flex-shrink-0" />
                   <span className="text-gray-200 text-lg">Python para Aplicações de IA</span>
                 </div>
               </div>
@@ -220,7 +230,7 @@ export default function EsperaPage() {
                 onClick={handleCTAClick}
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-[#0c83fe] to-[#00ff88] hover:from-[#00ff88] hover:to-[#0c83fe] text-black font-bold rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-[0_0_20px_rgba(12,131,254,0.5)] hover:shadow-[0_0_30px_rgba(0,255,136,0.5)]"
               >
-                <span className="mr-2">🚀</span>
+                <HiOutlineRocketLaunch className="w-5 h-5 mr-2" />
                 Quero me Tornar Especialista em IA
               </a>
             </div>
