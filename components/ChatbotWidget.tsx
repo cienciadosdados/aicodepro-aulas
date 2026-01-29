@@ -25,43 +25,51 @@ export function ChatbotWidget() {
   };
 
   useEffect(() => {
-    // Script padrão do Chatbase
-    const script = document.createElement('script');
-    script.innerHTML = `
-      window.embeddedChatbotConfig = {
-        chatbotId: "x6KwsnirDBy-dwFccyKzb",
-        domain: "www.chatbase.co"
-      }
-    `;
-    document.head.appendChild(script);
+    // Criar container para o widget
+    const container = document.createElement('div');
+    container.id = 'ai-agent-widget-83';
+    document.body.appendChild(container);
 
-    const embedScript = document.createElement('script');
-    embedScript.src = "https://www.chatbase.co/embed.min.js";
-    embedScript.setAttribute('chatbotId', 'x6KwsnirDBy-dwFccyKzb');
-    embedScript.setAttribute('domain', 'www.chatbase.co');
-    embedScript.defer = true;
-    document.body.appendChild(embedScript);
+    // Criar iframe do Eduardo AI
+    const widget = document.createElement('iframe');
+    widget.src = 'https://aihubpro.aiproexpert.workers.dev/widget?agentId=83&theme=dark&position=bottom-right&primaryColor=8b5cf6&size=small&showName=true&showAvatar=true&welcome=Opa%2C+Eduardo+AI+aqui...&placeholder=Digite+sua+mensagem...&height=400px&width=350px';
+    widget.style.border = 'none';
+    widget.style.position = 'fixed';
+    widget.style.zIndex = '9999';
+    widget.style.borderRadius = '12px';
+    widget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.2)';
+    
+    // Position
+    widget.style.bottom = '20px';
+    widget.style.right = '20px';
+    
+    // Size
+    widget.style.width = '350px';
+    widget.style.height = '400px';
+    
+    // Mobile responsive
+    if (window.innerWidth < 768) {
+      widget.style.width = '90vw';
+      widget.style.height = '70vh';
+      widget.style.bottom = '10px';
+      widget.style.right = '5vw';
+      widget.style.left = '5vw';
+    }
+    
+    container.appendChild(widget);
 
-    // Tracking simples - aguardar o chatbot carregar
+    // Tracking - rastrear quando o widget é carregado
     setTimeout(() => {
-      // Rastrear quando o chatbot é carregado na página
       trackChatbotInteraction('chatbot_loaded');
-
-      // Observar cliques no botão do chatbot (método mais simples)
-      const interval = setInterval(() => {
-        const chatbotButton = document.querySelector('[data-chatbase-open], .chatbase-bubble, iframe[src*="chatbase"]');
-        if (chatbotButton && !chatbotButton.hasAttribute('data-tracked')) {
-          chatbotButton.setAttribute('data-tracked', 'true');
-          chatbotButton.addEventListener('click', () => {
-            trackChatbotInteraction('chatbot_opened');
-          });
-          clearInterval(interval);
-        }
-      }, 1000);
-
-      // Limpar interval após 10 segundos
-      setTimeout(() => clearInterval(interval), 10000);
     }, 2000);
+
+    // Cleanup ao desmontar
+    return () => {
+      const existingContainer = document.getElementById('ai-agent-widget-83');
+      if (existingContainer) {
+        existingContainer.remove();
+      }
+    };
   }, []);
 
   return null;
