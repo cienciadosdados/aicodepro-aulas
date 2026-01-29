@@ -1,9 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { trackWhatsAppAction } from '@/lib/tracking-service';
+import { HiOutlineChatBubbleLeftRight, HiXMark } from 'react-icons/hi2';
 
 export function ChatbotWidget() {
+  const [isOpen, setIsOpen] = useState(false);
+
   // Função para obter a aula atual da URL
   const getCurrentAulaFromUrl = (): number => {
     if (typeof window !== 'undefined') {
@@ -24,53 +27,44 @@ export function ChatbotWidget() {
     }
   };
 
-  useEffect(() => {
-    // Criar container para o widget
-    const container = document.createElement('div');
-    container.id = 'ai-agent-widget-83';
-    document.body.appendChild(container);
-
-    // Criar iframe do Eduardo AI
-    const widget = document.createElement('iframe');
-    widget.src = 'https://aihubpro.aiproexpert.workers.dev/widget?agentId=83&theme=dark&position=bottom-right&primaryColor=8b5cf6&size=small&showName=true&showAvatar=true&welcome=Opa%2C+Eduardo+AI+aqui...&placeholder=Digite+sua+mensagem...&height=400px&width=350px';
-    widget.style.border = 'none';
-    widget.style.position = 'fixed';
-    widget.style.zIndex = '9999';
-    widget.style.borderRadius = '12px';
-    widget.style.boxShadow = '0 10px 40px rgba(0,0,0,0.2)';
-    
-    // Position
-    widget.style.bottom = '20px';
-    widget.style.right = '20px';
-    
-    // Size
-    widget.style.width = '350px';
-    widget.style.height = '400px';
-    
-    // Mobile responsive
-    if (window.innerWidth < 768) {
-      widget.style.width = '90vw';
-      widget.style.height = '70vh';
-      widget.style.bottom = '10px';
-      widget.style.right = '5vw';
-      widget.style.left = '5vw';
+  const handleToggle = () => {
+    if (!isOpen) {
+      trackChatbotInteraction('chatbot_opened');
     }
-    
-    container.appendChild(widget);
+    setIsOpen(!isOpen);
+  };
 
-    // Tracking - rastrear quando o widget é carregado
-    setTimeout(() => {
-      trackChatbotInteraction('chatbot_loaded');
-    }, 2000);
+  return (
+    <>
+      {/* Botão flutuante de chat */}
+      <button
+        onClick={handleToggle}
+        className="fixed bottom-5 right-5 z-[9999] w-14 h-14 rounded-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
+        aria-label={isOpen ? 'Fechar chat' : 'Abrir chat'}
+      >
+        {isOpen ? (
+          <HiXMark className="w-7 h-7" />
+        ) : (
+          <HiOutlineChatBubbleLeftRight className="w-7 h-7" />
+        )}
+      </button>
 
-    // Cleanup ao desmontar
-    return () => {
-      const existingContainer = document.getElementById('ai-agent-widget-83');
-      if (existingContainer) {
-        existingContainer.remove();
-      }
-    };
-  }, []);
-
-  return null;
+      {/* Widget do chat */}
+      {isOpen && (
+        <div className="fixed bottom-24 right-5 z-[9998]">
+          <iframe
+            src="https://aihubpro.aiproexpert.workers.dev/widget?agentId=83&theme=dark&position=bottom-right&primaryColor=8b5cf6&size=small&showName=true&showAvatar=true&welcome=Eduardo+AI.+aqui..como+te+ajudo%3F&placeholder=Digite+sua+msg...&height=400px&width=350px"
+            style={{
+              border: 'none',
+              borderRadius: '12px',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+              width: '350px',
+              height: '450px',
+            }}
+            className="md:w-[350px] md:h-[450px] w-[90vw] h-[60vh]"
+          />
+        </div>
+      )}
+    </>
+  );
 }
